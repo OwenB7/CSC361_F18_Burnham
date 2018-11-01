@@ -9,7 +9,6 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.
 Settings;
 
 /**
- * edited by Owen Burnham in Assignment 3
  * This is the main class for the GhostRunner-Desktop project 
  */
 public class DesktopLauncher
@@ -18,8 +17,6 @@ public class DesktopLauncher
 	private static boolean drawDebugOutline = true;
 	
 	/**
-	 * Edited by Owen Burnham in Assignment 3
-	 * This is the main method that runs the project
 	 * @param arg
 	 */
 	public static void main (String[] arg) 
@@ -37,7 +34,7 @@ public class DesktopLauncher
 		}
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "CanyonBunny";
+		config.title = "Ghost Runner";
 		config.width = 800;
 		config.height = 480;
 		new LwjglApplication(new GhostRunnerMain(), config);

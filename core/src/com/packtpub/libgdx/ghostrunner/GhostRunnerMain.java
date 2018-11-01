@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.game.WorldController;
 import com.mygdx.game.WorldRenderer;
+import com.packtpub.libgdx.ghostrunner.Assets;
 /**
  * This class has the major credentials for the game
  * in order for it to run and update as needed
@@ -38,7 +39,7 @@ public class GhostRunnerMain implements ApplicationListener
 		// Game world is active on start
 		paused = false;
 		// Load assets
-		Assets.instance.init(new AssetManager());
+		//Assets.instance.init(new AssetManager());
 	}
 	
 	/**
@@ -82,6 +83,7 @@ public class GhostRunnerMain implements ApplicationListener
 	 */
 	@Override public void resume () 
 	{ 
+		Assets.instance.init(new AssetManager());
 		paused = false;
 	}
 	

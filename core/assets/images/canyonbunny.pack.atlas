@@ -1,0 +1,55 @@
+
+canyonbunny.pack.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+CandyCorn
+  rotate: false
+  xy: 218, 700
+  size: 28, 56
+  orig: 28, 56
+  offset: 0, 0
+  index: -1
+Ghost
+  rotate: false
+  xy: 94, 590
+  size: 119, 82
+  orig: 119, 82
+  offset: 0, 0
+  index: -1
+Graveyard
+  rotate: false
+  xy: 2, 758
+  size: 1000, 198
+  orig: 1000, 198
+  offset: 0, 0
+  index: -1
+PlatformEdge
+  rotate: false
+  xy: 2, 46
+  size: 63, 348
+  orig: 63, 348
+  offset: 0, 0
+  index: -1
+PlatformMiddle
+  rotate: false
+  xy: 2, 396
+  size: 90, 360
+  orig: 90, 360
+  offset: 0, 0
+  index: -1
+Pumpkin
+  rotate: false
+  xy: 2, 2
+  size: 46, 42
+  orig: 46, 42
+  offset: 0, 0
+  index: -1
+RunningBoy
+  rotate: false
+  xy: 94, 674
+  size: 122, 82
+  orig: 122, 82
+  offset: 0, 0
+  index: -1
