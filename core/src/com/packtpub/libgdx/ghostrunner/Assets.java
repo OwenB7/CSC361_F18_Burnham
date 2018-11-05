@@ -26,6 +26,7 @@ public class Assets implements Disposable, AssetErrorListener
     
     public AssetBoy boy;
     public AssetRock rock;
+    public AssetBlackOverlay blackOverlay;
     public AssetCandyCorn candyCorn;
     public AssetPumpkin pumpkin;
     public AssetGhost ghost;
@@ -59,6 +60,7 @@ public class Assets implements Disposable, AssetErrorListener
         // create game resource objects
         boy = new AssetBoy(atlas);
         rock = new AssetRock(atlas);
+        blackOverlay = new AssetBlackOverlay(atlas);
         candyCorn = new AssetCandyCorn(atlas);
         pumpkin = new AssetPumpkin(atlas);
         ghost = new AssetGhost(atlas);
@@ -98,7 +100,7 @@ public class Assets implements Disposable, AssetErrorListener
        // public final AtlasRegion cloud03;
         public final AtlasRegion graveyardLeft;
         public final AtlasRegion graveyardRight;
-        //public final AtlasRegion waterOverlay;
+        public final AtlasRegion blackOverlay;
         
         public AssetLevelDecoration (TextureAtlas atlas)
         {
@@ -107,7 +109,7 @@ public class Assets implements Disposable, AssetErrorListener
             //cloud03 = atlas.findRegion("cloud03");
             graveyardLeft = atlas.findRegion("Graveyard");
             graveyardRight = atlas.findRegion("Graveyard");
-            //waterOverlay = atlas.findRegion("water_overlay");
+            blackOverlay = atlas.findRegion("blackOverlay");
         }
         
     }
@@ -137,6 +139,18 @@ public class Assets implements Disposable, AssetErrorListener
             edge = atlas.findRegion("PlatformEdge");
             middle = atlas.findRegion("PlatformMiddle");
         }
+    }
+    
+    /**
+     * Class that loads in the black overlay image
+     */
+    public class AssetBlackOverlay
+    {
+    	public final AtlasRegion blackOverlay;
+    	public AssetBlackOverlay (TextureAtlas atlas)
+    	{
+    		blackOverlay = atlas.findRegion("BlackOverlay");
+    	}
     }
     
     /**

@@ -30,7 +30,7 @@ public class DesktopLauncher
 			settings.debug = drawDebugOutline;
 			
 			/* settings, input, output, packfilename */
-			TexturePacker.process(settings, "assets-raw/images", "../core/assets/images", "canyonbunny.pack");
+			TexturePacker.process(settings, "assets-raw/images", "../core/assets/images", "canyonbunny.pack2");
 		}
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
