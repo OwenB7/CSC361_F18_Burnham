@@ -113,11 +113,12 @@ public class CameraHelper
     
     public boolean hasTarget (AbstractGameObject target)
     {
+    	
     	return hasTarget() && this.target.equals(target);
     }
     
     /** 
-     * applies udpates to the orthographic camera
+     * applies updates to the orthographic camera
      * @param camera
      */
     public void applyTo (OrthographicCamera camera)
