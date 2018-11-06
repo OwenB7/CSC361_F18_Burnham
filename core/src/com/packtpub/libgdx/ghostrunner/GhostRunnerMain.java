@@ -8,7 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.game.WorldController;
 import com.mygdx.game.WorldRenderer;
-import com.packtpub.libgdx.ghostrunner.Assets;
+import com.packtpub.libgdx.ghostrunner.util.Assets;
 /**
  * This class has the major credentials for the game
  * in order for it to run and update as needed
