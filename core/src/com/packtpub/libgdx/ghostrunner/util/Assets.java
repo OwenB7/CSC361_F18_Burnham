@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.mygdx.game.Constants;
+import com.packtpub.libgdx.ghostrunner.util.Constants;
 
 /**
  * Class that structures and organizes the assets

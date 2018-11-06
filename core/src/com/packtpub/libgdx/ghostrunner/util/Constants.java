@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.packtpub.libgdx.ghostrunner.util;
 
 /** 
  * Class used to store constant values
