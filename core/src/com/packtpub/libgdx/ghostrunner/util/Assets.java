@@ -1,4 +1,4 @@
-package com.packtpub.libgdx.ghostrunner;
+package com.packtpub.libgdx.ghostrunner.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
