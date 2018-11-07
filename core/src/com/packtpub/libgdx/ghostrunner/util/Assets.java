@@ -31,7 +31,7 @@ public class Assets implements Disposable, AssetErrorListener
     public AssetPumpkin pumpkin;
     public AssetGhost ghost;
     public AssetLevelDecoration levelDecoration;
-   // public AssetFonts fonts;
+    public AssetFonts fonts;
     
     // singleton: prevent instantiation from other classes
     private Assets() {}
@@ -40,21 +40,21 @@ public class Assets implements Disposable, AssetErrorListener
      * Holds the default bitmap font in three 
      * differently configured sizes
      */
-   /** public class AssetFonts
+    public class AssetFonts
     {
         public final BitmapFont defaultSmall;
         public final BitmapFont defaultNormal;
         public final BitmapFont defaultBig;
         
-        /**public AssetFonts()
+        public AssetFonts()
         {
             // create three fonts using Libgdx's 15px bitmap font
             defaultSmall = new BitmapFont(
-                    Gdx.files.internal("../core/assets/font/arial-15.fnt"), true);
+                    Gdx.files.internal("../core/assets/images/arial-15.fnt"), true);
             defaultNormal = new BitmapFont(
-                    Gdx.files.internal("../core/assets/font/arial-15.fnt"), true);
+                    Gdx.files.internal("../core/assets/images/arial-15.fnt"), true);
             defaultBig = new BitmapFont(
-                    Gdx.files.internal("../core/assets/font/arial-15.fnt"), true);
+                    Gdx.files.internal("../core/assets/images/arial-15.fnt"), true);
             
             // set font sizes
             defaultSmall.getData().setScale(0.75f);
@@ -70,7 +70,7 @@ public class Assets implements Disposable, AssetErrorListener
                     TextureFilter.Linear, TextureFilter.Linear);
         }
     }
-*/
+
 
     
     public void init (AssetManager assetManager) 
@@ -97,7 +97,7 @@ public class Assets implements Disposable, AssetErrorListener
         }
         
         // create game resource objects
-       // fonts = new AssetFonts();
+        fonts = new AssetFonts();
         boy = new AssetBoy(atlas);
         rock = new AssetRock(atlas);
         blackOverlay = new AssetBlackOverlay(atlas);
@@ -114,9 +114,9 @@ public class Assets implements Disposable, AssetErrorListener
     public void dispose() 
     {
         assetManager.dispose();
-        //fonts.defaultSmall.dispose();
-        //fonts.defaultNormal.dispose();
-        //fonts.defaultBig.dispose();
+        fonts.defaultSmall.dispose();
+        fonts.defaultNormal.dispose();
+        fonts.defaultBig.dispose();
     }
     
     /**
@@ -143,7 +143,7 @@ public class Assets implements Disposable, AssetErrorListener
     {
         //public final AtlasRegion cloud01;
        // public final AtlasRegion cloud02;
-       // public final AtlasRegion cloud03;
+        //public final AtlasRegion cloud03;
         public final AtlasRegion graveyardLeft;
         public final AtlasRegion graveyardRight;
         public final AtlasRegion blackOverlay;
@@ -155,7 +155,7 @@ public class Assets implements Disposable, AssetErrorListener
             //cloud03 = atlas.findRegion("cloud03");
             graveyardLeft = atlas.findRegion("Graveyard");
             graveyardRight = atlas.findRegion("Graveyard");
-            blackOverlay = atlas.findRegion("blackOverlay");
+            blackOverlay = atlas.findRegion("BlackOverlay");
         }
         
     }

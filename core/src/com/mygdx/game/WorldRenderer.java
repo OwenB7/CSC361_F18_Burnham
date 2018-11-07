@@ -111,9 +111,9 @@ public class WorldRenderer implements Disposable
         float y = -15;
         batch.draw(Assets.instance.candyCorn.candyCorn,
         x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
-        //Assets.instance.fonts.defaultBig.draw(batch,
-       // "" + worldController.score,
-        //x + 75, y + 37);
+        Assets.instance.fonts.defaultBig.draw(batch,
+        "" + worldController.score,
+        x + 75, y + 37);
     }
     
     /**
@@ -145,24 +145,24 @@ public class WorldRenderer implements Disposable
         float x = cameraGUI.viewportWidth - 55;
         float y = cameraGUI.viewportHeight - 15;
         int fps = Gdx.graphics.getFramesPerSecond();
-        //BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
+        BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
         if (fps >= 45)
         {
             // 45 or more FPS show up in green
-           // fpsFont.setColor(0, 1, 0, 1);
+           fpsFont.setColor(0, 1, 0, 1);
         }
         else if (fps >= 30)
         {
             // 30 or more FPS show up in yellow
-           // fpsFont.setColor(1, 1, 0, 1);
+           fpsFont.setColor(1, 1, 0, 1);
         }
         else
         {
             // less than 30 FPS show up in red
-           // fpsFont.setColor(1, 0, 0, 1);
+            fpsFont.setColor(1, 0, 0, 1);
         }
-        //fpsFont.draw(batch, "FPS: " + fps, x, y);
-       // fpsFont.setColor(1, 1, 1, 1); // white
+        fpsFont.draw(batch, "FPS: " + fps, x, y);
+        fpsFont.setColor(1, 1, 1, 1); // white
     }
     
     /**
