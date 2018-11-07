@@ -31,7 +31,7 @@ public class Assets implements Disposable, AssetErrorListener
     public AssetPumpkin pumpkin;
     public AssetGhost ghost;
     public AssetLevelDecoration levelDecoration;
-    public AssetFonts fonts;
+   // public AssetFonts fonts;
     
     // singleton: prevent instantiation from other classes
     private Assets() {}
@@ -40,13 +40,13 @@ public class Assets implements Disposable, AssetErrorListener
      * Holds the default bitmap font in three 
      * differently configured sizes
      */
-    public class AssetFonts
+   /** public class AssetFonts
     {
         public final BitmapFont defaultSmall;
         public final BitmapFont defaultNormal;
         public final BitmapFont defaultBig;
         
-        public AssetFonts()
+        /**public AssetFonts()
         {
             // create three fonts using Libgdx's 15px bitmap font
             defaultSmall = new BitmapFont(
@@ -70,7 +70,7 @@ public class Assets implements Disposable, AssetErrorListener
                     TextureFilter.Linear, TextureFilter.Linear);
         }
     }
-
+*/
 
     
     public void init (AssetManager assetManager) 
@@ -97,7 +97,7 @@ public class Assets implements Disposable, AssetErrorListener
         }
         
         // create game resource objects
-        fonts = new AssetFonts();
+       // fonts = new AssetFonts();
         boy = new AssetBoy(atlas);
         rock = new AssetRock(atlas);
         blackOverlay = new AssetBlackOverlay(atlas);
@@ -114,9 +114,9 @@ public class Assets implements Disposable, AssetErrorListener
     public void dispose() 
     {
         assetManager.dispose();
-        fonts.defaultSmall.dispose();
-        fonts.defaultNormal.dispose();
-        fonts.defaultBig.dispose();
+        //fonts.defaultSmall.dispose();
+        //fonts.defaultNormal.dispose();
+        //fonts.defaultBig.dispose();
     }
     
     /**

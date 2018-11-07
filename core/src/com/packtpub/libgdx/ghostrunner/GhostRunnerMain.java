@@ -39,6 +39,7 @@ public class GhostRunnerMain implements ApplicationListener
 		// Game world is active on start
 		paused = false;
 		// Load assets
+		//
 		//Assets.instance.init(new AssetManager());
 	}
 	

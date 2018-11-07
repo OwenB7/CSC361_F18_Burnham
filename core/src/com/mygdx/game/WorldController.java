@@ -43,14 +43,16 @@ public class WorldController extends InputAdapter
     /**
      * constructor
      */
-    public WorldController() {
+    public WorldController() 
+    {
         init();
     }
     
     /**
      * internal init (useful when reseting an object)
      */
-    public void init() {
+    public void init() 
+    {
         Gdx.input.setInputProcessor(this);
         cameraHelper = new CameraHelper();
         lives = Constants.LIVES_START;
@@ -64,7 +66,8 @@ public class WorldController extends InputAdapter
      * @param height
      * @return
      */
-    private Pixmap createProceduralPixmap (int width, int height) {
+    private Pixmap createProceduralPixmap (int width, int height) 
+    {
         Pixmap pixmap = new Pixmap(width, height, Format.RGBA8888);
         // Fill square with red color at 50% opacity
         pixmap.setColor(1, 0, 0, 0.5f);
@@ -84,7 +87,8 @@ public class WorldController extends InputAdapter
      * called several hundred times per sec
      * @param deltaTime
      */
-    public void update(float deltaTime) {
+    public void update(float deltaTime) 
+    {
         handleDebugInput(deltaTime);
         cameraHelper.update(deltaTime);
     }
@@ -93,7 +97,8 @@ public class WorldController extends InputAdapter
      * Handles the debug input
      * @param deltaTime
      */
-    private void handleDebugInput (float deltaTime) {
+    private void handleDebugInput (float deltaTime) 
+    {
         if (Gdx.app.getType() != ApplicationType.Desktop)
             return;
         
