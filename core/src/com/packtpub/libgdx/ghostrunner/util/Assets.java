@@ -10,10 +10,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.packtpub.libgdx.ghostrunner.util.Constants;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
  * Class that structures and organizes the assets
- *
  */
 public class Assets implements Disposable, AssetErrorListener 
 {
@@ -31,11 +31,50 @@ public class Assets implements Disposable, AssetErrorListener
     public AssetPumpkin pumpkin;
     public AssetGhost ghost;
     public AssetLevelDecoration levelDecoration;
+    public AssetFonts fonts;
     
     // singleton: prevent instantiation from other classes
     private Assets() {}
     
-    public void init (AssetManager assetManager) {
+    /**
+     * Holds the default bitmap font in three 
+     * differently configured sizes
+     */
+    public class AssetFonts
+    {
+        public final BitmapFont defaultSmall;
+        public final BitmapFont defaultNormal;
+        public final BitmapFont defaultBig;
+        
+        public AssetFonts()
+        {
+            // create three fonts using Libgdx's 15px bitmap font
+            defaultSmall = new BitmapFont(
+                    Gdx.files.internal("../core/assets/font/arial-15.fnt"), true);
+            defaultNormal = new BitmapFont(
+                    Gdx.files.internal("../core/assets/font/arial-15.fnt"), true);
+            defaultBig = new BitmapFont(
+                    Gdx.files.internal("../core/assets/font/arial-15.fnt"), true);
+            
+            // set font sizes
+            defaultSmall.getData().setScale(0.75f);
+            defaultNormal.getData().setScale(1.0f);
+            defaultBig.getData().setScale(2.0f);
+            
+            // enable linear texture filtering for smooth fonts
+            defaultSmall.getRegion().getTexture().setFilter(
+                    TextureFilter.Linear, TextureFilter.Linear);
+            defaultNormal.getRegion().getTexture().setFilter(
+                    TextureFilter.Linear, TextureFilter.Linear);
+            defaultBig.getRegion().getTexture().setFilter(
+                    TextureFilter.Linear, TextureFilter.Linear);
+        }
+    }
+
+
+    
+    public void init (AssetManager assetManager) 
+    {
         this.assetManager = assetManager;
         // set asset manager error handler
         assetManager.setErrorListener(this);
@@ -58,6 +97,7 @@ public class Assets implements Disposable, AssetErrorListener
         }
         
         // create game resource objects
+        fonts = new AssetFonts();
         boy = new AssetBoy(atlas);
         rock = new AssetRock(atlas);
         blackOverlay = new AssetBlackOverlay(atlas);
@@ -71,8 +111,12 @@ public class Assets implements Disposable, AssetErrorListener
      * disposes objects after they're done being used
      */
     @Override
-    public void dispose() {
+    public void dispose() 
+    {
         assetManager.dispose();
+        fonts.defaultSmall.dispose();
+        fonts.defaultNormal.dispose();
+        fonts.defaultBig.dispose();
     }
     
     /**
@@ -81,7 +125,8 @@ public class Assets implements Disposable, AssetErrorListener
      * @param type
      * @param throwable
      */
-    public void error (String filename, Class type, Throwable throwable) {
+    public void error (String filename, Class type, Throwable throwable) 
+    {
         Gdx.app.error(TAG, "Couldn't load asset: '" + filename + "'", (Exception)throwable);
     }
     
@@ -89,7 +134,8 @@ public class Assets implements Disposable, AssetErrorListener
      * handles an error
      */
     @Override
-    public void error (AssetDescriptor asset, Throwable throwable) {
+    public void error (AssetDescriptor asset, Throwable throwable) 
+    {
         Gdx.app.error(TAG, "Couldn't load asset '" + asset.fileName + "'", (Exception)throwable);
     }
     
