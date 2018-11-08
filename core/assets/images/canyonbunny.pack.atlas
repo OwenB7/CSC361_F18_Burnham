@@ -6,42 +6,49 @@ filter: Nearest,Nearest
 repeat: none
 BlackOverlay
   rotate: false
-  xy: 91, 421
+  xy: 964, 439
   size: 33, 160
   orig: 33, 160
   offset: 0, 0
   index: -1
 CandyCorn
   rotate: false
-  xy: 215, 693
+  xy: 280, 343
   size: 28, 56
   orig: 28, 56
   offset: 0, 0
   index: -1
 Ghost
   rotate: false
-  xy: 91, 583
+  xy: 156, 233
   size: 119, 82
   orig: 119, 82
   offset: 0, 0
   index: -1
 Graveyard
   rotate: false
-  xy: 2, 751
+  xy: 2, 601
   size: 1000, 198
   orig: 1000, 198
   offset: 0, 0
   index: -1
+Graveyard2
+  rotate: false
+  xy: 2, 401
+  size: 960, 198
+  orig: 960, 198
+  offset: 0, 0
+  index: -1
 PlatformEdge
   rotate: false
-  xy: 2, 46
+  xy: 91, 51
   size: 63, 348
   orig: 63, 348
   offset: 0, 0
   index: -1
 PlatformMiddle
   rotate: false
-  xy: 2, 396
+  xy: 2, 46
   size: 87, 353
   orig: 87, 353
   offset: 0, 0
@@ -55,7 +62,7 @@ Pumpkin
   index: -1
 RunningBoy
   rotate: false
-  xy: 91, 667
+  xy: 156, 317
   size: 122, 82
   orig: 122, 82
   offset: 0, 0

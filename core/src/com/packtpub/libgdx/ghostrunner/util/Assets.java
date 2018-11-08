@@ -72,7 +72,10 @@ public class Assets implements Disposable, AssetErrorListener
     }
 
 
-    
+    /**
+     * initializes the asset manager
+     * @param assetManager
+     */
     public void init (AssetManager assetManager) 
     {
         this.assetManager = assetManager;
@@ -153,8 +156,8 @@ public class Assets implements Disposable, AssetErrorListener
             //cloud01 = atlas.findRegion("cloud01");
             //cloud02 = atlas.findRegion("cloud02");
             //cloud03 = atlas.findRegion("cloud03");
-            graveyardLeft = atlas.findRegion("Graveyard");
-            graveyardRight = atlas.findRegion("Graveyard");
+            graveyardLeft = atlas.findRegion("Graveyard2");
+            graveyardRight = atlas.findRegion("Graveyard2");
             blackOverlay = atlas.findRegion("BlackOverlay");
         }
         

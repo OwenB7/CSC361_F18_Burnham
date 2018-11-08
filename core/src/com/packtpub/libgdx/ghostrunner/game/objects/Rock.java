@@ -17,7 +17,9 @@ public class Rock extends AbstractGameObject
     
     private int length;
     
-
+    /**
+     * initializes rock
+     */
     public Rock() 
     {
         init();

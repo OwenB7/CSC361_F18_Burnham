@@ -28,16 +28,31 @@ public class Level
         ITEM_CANDY_CORN(255, 255, 0); // yellow
         private int color;
         
+        /**
+         * limitations for block type
+         * @param r
+         * @param g
+         * @param b
+         */
         private BLOCK_TYPE (int r, int g, int b)
         {
             color = r << 24 | g << 16 | b << 8 | 0xff;
         }
         
+        /**
+         * checks to see if same color
+         * @param color
+         * @return
+         */
         public boolean sameColor (int color)
         {
             return this.color == color;
         }
         
+        /**
+         * returns the color
+         * @return
+         */
         public int getColor ()
         {
             return color;
@@ -51,10 +66,19 @@ public class Level
         public Graveyard graveyard;
         public BlackOverlay blackOverlay;
         
+        /**
+         * creates instance of level
+         * @param filename
+         */
         public Level (String filename)
         {
             init(filename);
         }
+        
+        /**
+         * initializes the level
+         * @param filename
+         */
         private void init (String filename)
         {
             // objects

@@ -17,12 +17,19 @@ public class Graveyard extends AbstractGameObject
     private TextureRegion regGraveyardRight;
     private int length;
     
+    /**
+     * instance of graveyard
+     * @param length
+     */
     public Graveyard(int length)
     {
       this.length = length;
       init();
     }
     
+    /**
+     * initializes graveyard
+     */
     private void init()
     {
         dimension.set(10, 2);
@@ -33,6 +40,13 @@ public class Graveyard extends AbstractGameObject
         length += dimension.x * 2;
     }
     
+    	/**
+    	 * Draws the graveyard
+    	 * @param batch
+    	 * @param offsetX
+    	 * @param offsetY
+    	 * @param tintColor
+    	 */
         private void drawGraveyard (SpriteBatch batch, float offsetX, float offsetY, float tintColor)
         {
             TextureRegion reg = null;
@@ -65,6 +79,9 @@ public class Graveyard extends AbstractGameObject
         }
         
         @Override
+        /**
+         * renders the graveyard
+         */
         public void render(SpriteBatch batch)
         {
         	// distant graveyard (dark gray)
