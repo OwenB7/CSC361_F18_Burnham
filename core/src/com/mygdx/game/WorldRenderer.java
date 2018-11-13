@@ -173,14 +173,70 @@ public class WorldRenderer implements Disposable
     {
         batch.setProjectionMatrix(cameraGUI.combined);
         batch.begin();
-        // draw collected gold coins icon + text
+        // draw collected candycorn icon + text
         // (anchored to top left edge)
         renderGuiScore(batch);
         // draw extra lives icon + text (anchored to top right edge)
         renderGuiExtraLive(batch);
+        // draw collected pumpkin icon (anchored to top left edgeL
+        renderGuiPumpkinPowerup(batch);
         // draw FPS text (anchored to bottom right edge)
         renderGuiFpsCounter(batch);
+        // draw game over text
+        renderGuiGameOverMessage(batch);
         batch.end();
     } 
+    
+    /**
+     * This function adds the text that says Game Over when lives run out
+     * @param batch
+     */
+    private void renderGuiGameOverMessage (SpriteBatch batch) 
+    {
+        float x = cameraGUI.viewportWidth / 2;
+        float y = cameraGUI.viewportHeight / 2;
+        if (worldController.isGameOver()) 
+        {
+	        BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
+	        fontGameOver.setColor(1, 0.75f, 0.25f, 1);
+	        fontGameOver.draw(batch, "GAME OVER", x, y, 0, Align.center, false);        // need to fix alignment center
+	        fontGameOver.setColor(1, 1, 1, 1);
+        }
+    }
+    
+  /**
+    * This method first checks whether there is still time left for the feather power-up effect
+    * to end. Only if this is the case, a feather icon is drawn in the top-left corner under the
+    * gold coin icon. A small number is drawn next to it that displays the rounded time
+    * that is still left until the effect vanishes.
+    */
+    private void renderGuiPumpkinPowerup (SpriteBatch batch) 
+    {
+        float x = -15;
+        float y = 30;
+        float timeLeftPumpkinPowerup =
+        worldController.level.boy.timeLeftPumpkinPowerup;
+        if (timeLeftPumpkinPowerup > 0) 
+        {
+        	// Start icon fade in/out if the left power-up time
+        	// is less than 4 seconds. The fade interval is set
+        	// to 5 changes per second.
+        	if (timeLeftPumpkinPowerup < 4) 
+        	{
+        		if (((int)(timeLeftPumpkinPowerup * 5) % 2) != 0) 
+        		{	
+        			batch.setColor(1, 1, 1, 0.5f);
+        		}
+        	}
+        batch.draw(Assets.instance.pumpkin.pumpkin,
+        x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
+        batch.setColor(1, 1, 1, 1);
+        Assets.instance.fonts.defaultSmall.draw(batch,
+        "" + (int)timeLeftPumpkinPowerup, x + 60, y + 57);
+        }
+    }
+    
+
+
 }
 
