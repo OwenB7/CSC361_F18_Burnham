@@ -10,15 +10,22 @@ import com.packtpub.libgdx.ghostrunner.game.objects.AbstractGameObject;
 import com.packtpub.libgdx.ghostrunner.game.objects.Graveyard;
 import com.packtpub.libgdx.ghostrunner.game.objects.Rock;
 import com.packtpub.libgdx.ghostrunner.game.objects.BlackOverlay;
+import com.packtpub.libgdx.ghostrunner.game.objects.Boy;
+import com.packtpub.libgdx.ghostrunner.game.objects.Pumpkin;
+import com.packtpub.libgdx.ghostrunner.game.objects.CandyCorn;
 
 
 /** 
  * This class is the loader that will read and interpret the image data
- * All graveyards and blackOverlay are filled in level class
+ * All game objects are filled in level class
  */
 public class Level
 {
     public static final String TAG = Level.class.getName();
+    public Boy boy;
+    public Array<CandyCorn> candycorn;
+    public Array<Pumpkin> pumpkins;
+    
     public enum BLOCK_TYPE
     {
         EMPTY(0, 0, 0), // black
@@ -81,8 +88,12 @@ public class Level
          */
         private void init (String filename)
         {
+        	// player character
+        	boy = null;
             // objects
             rocks = new Array<Rock>();
+            candycorn = new Array<CandyCorn>();
+            pumpkins = new Array<Pumpkin>();
             
             // load image file that represents the level data
             Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -128,17 +139,30 @@ public class Level
             else if
             (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel))
             {
-                
+            	obj = new Boy();
+                offsetHeight = -3.0f;
+                obj.position.set(pixelX,baseHeight * obj.dimension.y +
+                        offsetHeight);
+                        boy = (Boy)obj;
             }
             // pumpkin
             else if (BLOCK_TYPE.ITEM_PUMPKIN.sameColor(currentPixel))
             {
-                
+            	obj = new Pumpkin();
+                offsetHeight = -1.5f;
+                obj.position.set(pixelX,baseHeight * obj.dimension.y
+                + offsetHeight);
+                pumpkins.add((Pumpkin)obj);
+
             }
             // candy corn
             else if (BLOCK_TYPE.ITEM_CANDY_CORN.sameColor(currentPixel))
             {
-                
+            	 obj = new CandyCorn();
+                 offsetHeight = -1.5f;
+                 obj.position.set(pixelX,baseHeight * obj.dimension.y
+                 + offsetHeight);
+                 candycorn.add((CandyCorn)obj); 
             }
             // unknown object/pixel color
             else {
@@ -164,7 +188,11 @@ public class Level
             Gdx.app.debug(TAG, "level '" + filename + "' loaded");
         }
         
-        //Render matches lastPixel with currentPixel and used to detect rock pixels/colors.
+        /**
+         * Render matches lastPixel with currentPixel and 
+         * used to detect rock pixels/colors.
+         * @param batch
+         */
         public void render(SpriteBatch batch)
         {
             // Draw Graveyards
@@ -172,14 +200,44 @@ public class Level
             
             // Draw Rocks
             for (Rock rock : rocks)
-                
-            rock.render(batch);
+                rock.render(batch);
+            
+         // Draw Candy Corn
+            for (CandyCorn goldCoin : candycorn)
+            goldCoin.render(batch);
+            
+            // Draw Pumpkins
+            for (Pumpkin feather : pumpkins)
+            feather.render(batch);
+            
+            // Draw Player Character
+            boy.render(batch);
+
+            
             // Draw Black Overlay
             blackOverlay.render(batch);
             
             // Draw Clouds
             //clouds.render(batch);
         }
+        
+        /**
+         * Collectively updates all the game world
+         * objects in a level in one call
+         * @param deltaTime
+         */
+        public void update (float deltaTime)
+        {
+            boy.update(deltaTime);
+            for(Rock rock : rocks)
+            	rock.update(deltaTime);
+            for(CandyCorn candyCorn : candycorn)
+            	candyCorn.update(deltaTime);
+            for(Pumpkin pumpkin : pumpkins)
+                pumpkin.update(deltaTime);
+        }
+            
+
             
             
 }
