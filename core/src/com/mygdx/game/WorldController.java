@@ -38,6 +38,7 @@ public class WorldController extends InputAdapter
     {
     	score = 0;
     	level = new Level(Constants.LEVEL_01);
+    	cameraHelper.setTarget(level.boy);
     }
     
     /**
@@ -91,6 +92,8 @@ public class WorldController extends InputAdapter
     {
         handleDebugInput(deltaTime);
         cameraHelper.update(deltaTime);
+        handleInputGame(deltaTime);
+        level.update(deltaTime);
     }
     
     /**
@@ -102,22 +105,24 @@ public class WorldController extends InputAdapter
         if (Gdx.app.getType() != ApplicationType.Desktop)
             return;
         
-        
-        // Camera Controls (move)
-        float camMoveSpeed = 5 * deltaTime;
-        float camMoveSpeedAccelerationFactor = 5;
-        if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-            camMoveSpeed *= camMoveSpeedAccelerationFactor;
-        if (Gdx.input.isKeyPressed(Keys.LEFT))
-            moveCamera(-camMoveSpeed, 0);
-        if (Gdx.input.isKeyPressed(Keys.RIGHT))
-            moveCamera(camMoveSpeed, 0);
-        if (Gdx.input.isKeyPressed(Keys.UP))
-            moveCamera(0, camMoveSpeed);
-        if (Gdx.input.isKeyPressed(Keys.DOWN))
-            moveCamera(0, -camMoveSpeed);
-        if (Gdx.input.isKeyPressed(Keys.BACKSPACE))
-            cameraHelper.setPosition(0, 0);
+        if (!cameraHelper.hasTarget(level.boy))
+        {	
+	        // Camera Controls (move)
+	        float camMoveSpeed = 5 * deltaTime;
+	        float camMoveSpeedAccelerationFactor = 5;
+	        if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
+	            camMoveSpeed *= camMoveSpeedAccelerationFactor;
+	        if (Gdx.input.isKeyPressed(Keys.LEFT))
+	            moveCamera(-camMoveSpeed, 0);
+	        if (Gdx.input.isKeyPressed(Keys.RIGHT))
+	            moveCamera(camMoveSpeed, 0);
+	        if (Gdx.input.isKeyPressed(Keys.UP))
+	            moveCamera(0, camMoveSpeed);
+	        if (Gdx.input.isKeyPressed(Keys.DOWN))
+	            moveCamera(0, -camMoveSpeed);
+	        if (Gdx.input.isKeyPressed(Keys.BACKSPACE))
+	            cameraHelper.setPosition(0, 0);
+        }
         
         // Camera Controls (zoom)
         float camZoomSpeed = 1 * deltaTime;
@@ -158,6 +163,41 @@ public class WorldController extends InputAdapter
             init();
             Gdx.app.debug(TAG, "Game world resetted");
         }
+        //Toggle camera follow
+        else if (keycode == Keys.ENTER)
+        {	
+        	cameraHelper.setTarget(cameraHelper.hasTarget()
+        			? null: level.boy);
+        	Gdx.app.debug(TAG,  "Camera follow enabled: " + cameraHelper.hasTarget());
+        }
         return false;
     }
+    
+    /**
+     * allows player to be controllable with left and right arrow keys
+     */
+    private void handleInputGame (float deltaTime) {
+       if (cameraHelper.hasTarget(level.boy)) {
+           // Player Movement
+           if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+               level.boy.velocity.x = -level.boy.terminalVelocity.x;
+           }
+           else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+               level.boy.velocity.x = level.boy.terminalVelocity.x;
+           }
+           else {
+               // Execute auto-forward movement on non-desktop platform
+               if (Gdx.app.getType() != ApplicationType.Desktop) {
+                   level.boy.velocity.x = level.boy.terminalVelocity.x;
+               }
+           }
+           // Bunny Jump
+           if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) {
+             level.boy.setJumping(true);
+           } else {
+             level.boy.setJumping(false);
+           }
+       }
+       }
+
 }
