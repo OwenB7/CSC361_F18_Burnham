@@ -28,4 +28,7 @@ public class Constants
     
     // Duration of pumpkin power-up in seconds
     public static final float ITEM_PUMPKIN_POWERUP_DURATION = 5;
+    
+    // Delay after game over
+    public static final float TIME_DELAY_GAME_OVER = 3;
 }
