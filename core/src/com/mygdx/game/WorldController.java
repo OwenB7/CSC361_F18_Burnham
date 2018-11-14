@@ -13,8 +13,25 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.packtpub.libgdx.ghostrunner.Level;
+import com.packtpub.libgdx.ghostrunner.game.objects.AbstractGameObject;
 import com.packtpub.libgdx.ghostrunner.game.objects.Rock;
+import com.packtpub.libgdx.ghostrunner.game.objects.CandyCorn;
+import com.packtpub.libgdx.ghostrunner.game.objects.Pumpkin;
+import com.packtpub.libgdx.ghostrunner.game.objects.Boy;
+
+
 import com.packtpub.libgdx.ghostrunner.util.Constants;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.Fixture;
+
 
 /** will need to create package for this */
 /** testing */
@@ -176,28 +193,80 @@ public class WorldController extends InputAdapter
     /**
      * allows player to be controllable with left and right arrow keys
      */
-    private void handleInputGame (float deltaTime) {
-       if (cameraHelper.hasTarget(level.boy)) {
+    private void handleInputGame (float deltaTime) 
+    {
+       if (cameraHelper.hasTarget(level.boy)) 
+       {
            // Player Movement
-           if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+           if (Gdx.input.isKeyPressed(Keys.LEFT)) 
+           {
                level.boy.velocity.x = -level.boy.terminalVelocity.x;
            }
-           else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+           else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
+           {
                level.boy.velocity.x = level.boy.terminalVelocity.x;
            }
-           else {
+           
+           else 
+           {
                // Execute auto-forward movement on non-desktop platform
-               if (Gdx.app.getType() != ApplicationType.Desktop) {
+               if (Gdx.app.getType() != ApplicationType.Desktop) 
+               {
                    level.boy.velocity.x = level.boy.terminalVelocity.x;
                }
            }
            // Bunny Jump
-           if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) {
+           if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) 
+           {
              level.boy.setJumping(true);
-           } else {
+           } else 
+           {
              level.boy.setJumping(false);
            }
        }
-       }
+    }
+    
+    private void processContact(Contact contact)
+    {
+    	Fixture fixtureA = contact.getFixtureA();
+    	Fixture fixtureB = contact.getFixtureB();
+    	AbstractGameObject objA = (AbstractGameObject) fixtureA.getBody().getUserData();
+    	AbstractGameObject objB = (AbstractGameObject) fixtureB.getBody().getUserData();
+    	if ((objA instanceof Boy) && (objB instanceof CandyCorn))
+    	{
+    		processCandyCornContact(fixtureA,fixtureB);
+    	}
+    	
+    	if ((objA instanceof Boy) && (objB instanceof Rock))
+    	{
+    		processRockContact(fixtureA,fixtureB);
+    	}
+    	
+    	if ((objA instanceof Boy) && (objB instanceof Pumpkin))
+    	{
+    		processPumpkinContact(fixtureA,fixtureB);
+    	}
+    	
+    	//if ((objA instanceof Boy) && (objB instanceof Ghost))
+    	//{
+    	//	processGhostContact(fixtureA,fixtureB);
+    	//}
+    
+    }
+    
+    private void processCandyCornContact(Fixture boyFixture, Fixture candyCornFixture)
+    {
+    	
+    }
+    
+    private void processRockContact(Fixture boyFixture, Fixture rockFixture)
+    {
+    	
+    }
+    
+    private void processPumpkinContact(Fixture boyFixture, Fixture candyCornFixture)
+    {
+    	
+    }
 
 }

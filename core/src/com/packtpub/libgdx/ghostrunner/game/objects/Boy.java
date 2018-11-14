@@ -81,7 +81,7 @@ public class Boy extends AbstractGameObject
      * single or a multi jump.
      * @param jumpKeyPressed
      */
-    /**public void setJumping (boolean jumpKeyPressed)
+    public void setJumping (boolean jumpKeyPressed)
     {
         switch (jumpState)    
         {
@@ -138,7 +138,7 @@ public class Boy extends AbstractGameObject
      * power-up effect is also checked.  If the time is up, the
      * feather power-up effect is disabled.
      */
-    /**public void update (float deltaTime)
+    public void update (float deltaTime)
     {
         super.update(deltaTime);
         if (velocity.x != 0)
@@ -163,7 +163,7 @@ public class Boy extends AbstractGameObject
      * Handles the calculations and switching of states that
      * is needed to enable jumping and falling
      */
-    /**protected void updateMotionY (float deltaTime)
+    protected void updateMotionY (float deltaTime)
     {
         switch (jumpState)
         {
