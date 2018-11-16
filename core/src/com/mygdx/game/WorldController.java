@@ -18,12 +18,12 @@ import com.packtpub.libgdx.ghostrunner.game.objects.Rock;
 import com.packtpub.libgdx.ghostrunner.game.objects.CandyCorn;
 import com.packtpub.libgdx.ghostrunner.game.objects.Pumpkin;
 import com.packtpub.libgdx.ghostrunner.game.objects.Boy;
-
-
+import com.packtpub.libgdx.ghostrunner.game.objects.Boy.JUMP_STATE;
 import com.packtpub.libgdx.ghostrunner.util.Constants;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -41,12 +41,13 @@ public class WorldController extends InputAdapter
     
     private static final String TAG =
         WorldController.class.getName();
-    
+  
     
     public CameraHelper cameraHelper;
     public Level level;
     public int lives;
     public int score;
+    public World b2world;
     
     /**
      * Initializes the level
@@ -56,6 +57,7 @@ public class WorldController extends InputAdapter
     	score = 0;
     	level = new Level(Constants.LEVEL_01);
     	cameraHelper.setTarget(level.boy);
+    	initPhysics();
     }
     
     /**
@@ -69,12 +71,16 @@ public class WorldController extends InputAdapter
     /**
      * internal init (useful when reseting an object)
      */
+    
     public void init() 
     {
         Gdx.input.setInputProcessor(this);
         cameraHelper = new CameraHelper();
         lives = Constants.LIVES_START;
         initLevel();
+        //initPhysics();
+        
+        
     }
     
     
@@ -107,10 +113,15 @@ public class WorldController extends InputAdapter
      */
     public void update(float deltaTime) 
     {
+    	
         handleDebugInput(deltaTime);
-        cameraHelper.update(deltaTime);
         handleInputGame(deltaTime);
         level.update(deltaTime);
+        b2world.step(deltaTime, 8, 3);
+        cameraHelper.update(deltaTime);
+        
+        
+        
     }
     
     /**
@@ -184,7 +195,7 @@ public class WorldController extends InputAdapter
         else if (keycode == Keys.ENTER)
         {	
         	cameraHelper.setTarget(cameraHelper.hasTarget()
-        			? null: level.boy);
+        			? null: Level.boy);
         	Gdx.app.debug(TAG,  "Camera follow enabled: " + cameraHelper.hasTarget());
         }
         return false;
@@ -195,16 +206,16 @@ public class WorldController extends InputAdapter
      */
     private void handleInputGame (float deltaTime) 
     {
-       if (cameraHelper.hasTarget(level.boy)) 
+       if (cameraHelper.hasTarget(Level.boy)) 
        {
            // Player Movement
-           if (Gdx.input.isKeyPressed(Keys.LEFT)) 
+           if (Gdx.input.isKeyPressed(Keys.A)) 
            {
-               level.boy.velocity.x = -level.boy.terminalVelocity.x;
+               Level.boy.body.setLinearVelocity(new Vector2(-3,0));   //velocity.x = -level.boy.terminalVelocity.x;
            }
-           else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
+           else if (Gdx.input.isKeyPressed(Keys.D)) 
            {
-               level.boy.velocity.x = level.boy.terminalVelocity.x;
+               Level.boy.body.setLinearVelocity(new Vector2(3,0));    //velocity.x = level.boy.terminalVelocity.x;
            }
            
            else 
@@ -212,61 +223,122 @@ public class WorldController extends InputAdapter
                // Execute auto-forward movement on non-desktop platform
                if (Gdx.app.getType() != ApplicationType.Desktop) 
                {
-                   level.boy.velocity.x = level.boy.terminalVelocity.x;
+                   Level.boy.velocity.x = Level.boy.terminalVelocity.x;
                }
            }
-           // Bunny Jump
+           // Boy Jump
            if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) 
            {
-             level.boy.setJumping(true);
+        	   
+             Level.boy.setJumping(true);
+             
            } else 
            {
-             level.boy.setJumping(false);
+             Level.boy.setJumping(false);
            }
        }
     }
     
-    private void processContact(Contact contact)
+    public void initPhysics()
     {
-    	Fixture fixtureA = contact.getFixtureA();
-    	Fixture fixtureB = contact.getFixtureB();
-    	AbstractGameObject objA = (AbstractGameObject) fixtureA.getBody().getUserData();
-    	AbstractGameObject objB = (AbstractGameObject) fixtureB.getBody().getUserData();
-    	if ((objA instanceof Boy) && (objB instanceof CandyCorn))
+    	if (b2world != null) 
+    		b2world.dispose();
+        b2world = new World(new Vector2(0, -9.81f), true);
+        b2world.setContactListener(new CollisionHandler(this));
+    	
+    	Vector2 origin = new Vector2();
+    	
+    	
+    	
+    	// creating the rock body
+    	for (Rock rock : level.rocks)
     	{
-    		processCandyCornContact(fixtureA,fixtureB);
+    		BodyDef bodyDef = new BodyDef();
+    		bodyDef.type = BodyType.KinematicBody;
+    		bodyDef.position.set(rock.position);
+    		Body body = b2world.createBody(bodyDef);
+    		// set user data
+    		body.setUserData(rock);
+    		rock.body = body;
+    		PolygonShape polygonShape = new PolygonShape();
+    		origin.x = rock.bounds.width / 2.0f;
+    		origin.y = rock.bounds.height / 2.0f;
+    		polygonShape.setAsBox(rock.bounds.width / 2.0f,
+    				rock.bounds.height / 2.0f,origin, 0);
+    		FixtureDef fixtureDef = new FixtureDef();
+    		fixtureDef.friction = 0.5f;
+    		fixtureDef.shape = polygonShape;
+    		body.createFixture(fixtureDef);
+    		polygonShape.dispose();
     	}
     	
-    	if ((objA instanceof Boy) && (objB instanceof Rock))
+    	// creating the candy corn body
+    	for (CandyCorn candyCorn : level.candycorn)
     	{
-    		processRockContact(fixtureA,fixtureB);
+    		BodyDef bodyDef = new BodyDef();
+    		bodyDef.type = BodyType.KinematicBody;
+    		bodyDef.position.set(candyCorn.position);
+    		Body body = b2world.createBody(bodyDef);
+    		body.setUserData(candyCorn);
+    		
+    		candyCorn.body = body;
+    		PolygonShape polygonShape = new PolygonShape();
+    		origin.x = candyCorn.bounds.width / 2.0f;
+    		origin.y = candyCorn.bounds.height / 2.0f;
+    		polygonShape.setAsBox(candyCorn.bounds.width / 2.0f,
+    				candyCorn.bounds.height / 2.0f,origin, 0);
+    		FixtureDef fixtureDef = new FixtureDef();
+    		fixtureDef.shape = polygonShape;
+    		fixtureDef.isSensor = true;
+    		body.createFixture(fixtureDef);
+    		polygonShape.dispose();
     	}
     	
-    	if ((objA instanceof Boy) && (objB instanceof Pumpkin))
+    	// creating the pumpkin body
+    	for (Pumpkin pumpkin : level.pumpkins)
     	{
-    		processPumpkinContact(fixtureA,fixtureB);
+    		BodyDef bodyDef = new BodyDef();
+    		bodyDef.type = BodyType.KinematicBody;
+    		bodyDef.position.set(pumpkin.position);
+    		Body body = b2world.createBody(bodyDef);
+    		// set user data
+    		body.setUserData(pumpkin);
+    		
+    		pumpkin.body = body;
+    		PolygonShape polygonShape = new PolygonShape();
+    		origin.x = pumpkin.bounds.width / 2.0f;
+    		origin.y = pumpkin.bounds.height / 2.0f;
+    		polygonShape.setAsBox(pumpkin.bounds.width / 2.0f,
+    				pumpkin.bounds.height / 2.0f,origin, 0);
+    		FixtureDef fixtureDef = new FixtureDef();
+    		fixtureDef.shape = polygonShape;
+    		fixtureDef.isSensor = true;
+    		body.createFixture(fixtureDef);
+    		polygonShape.dispose();
     	}
     	
-    	//if ((objA instanceof Boy) && (objB instanceof Ghost))
-    	//{
-    	//	processGhostContact(fixtureA,fixtureB);
-    	//}
+    	// creating the boy body
+    	Boy boy = Level.boy;
     
-    }
-    
-    private void processCandyCornContact(Fixture boyFixture, Fixture candyCornFixture)
-    {
+    		BodyDef bodyDef = new BodyDef();
+    		bodyDef.type = BodyType.DynamicBody;
+    		bodyDef.position.set(boy.position);
+    		Body body = b2world.createBody(bodyDef);
+    		body.setUserData(boy);
+    		boy.body = body;
+    		PolygonShape polygonShape = new PolygonShape();
+    		origin.x = boy.bounds.width / 2.0f;
+    		origin.y = boy.bounds.height / 2.0f;
+    		polygonShape.setAsBox(boy.bounds.width / 2.0f,
+    				boy.bounds.height / 2.0f,origin, 0);
+    		FixtureDef fixtureDef = new FixtureDef();
+    		fixtureDef.shape = polygonShape;
+    		body.createFixture(fixtureDef);
+    		polygonShape.dispose();
+    	
+    	
     	
     }
     
-    private void processRockContact(Fixture boyFixture, Fixture rockFixture)
-    {
-    	
-    }
-    
-    private void processPumpkinContact(Fixture boyFixture, Fixture candyCornFixture)
-    {
-    	
-    }
 
 }

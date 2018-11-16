@@ -3,9 +3,11 @@ package com.packtpub.libgdx.ghostrunner.game.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.packtpub.libgdx.ghostrunner.game.objects.*;
 import com.packtpub.libgdx.ghostrunner.util.Assets;
 import com.packtpub.libgdx.ghostrunner.util.Constants;
+import com.packtpub.libgdx.ghostrunner.Level;
 /**
  * This class is for the boy object.
  * It is the player's character and consists of only
@@ -91,6 +93,7 @@ public class Boy extends AbstractGameObject
                 // Start counting jump time from the beginning
                 timeJumping = 0;
                 jumpState = JUMP_STATE.JUMP_RISING;
+                System.out.println("TESTING");
             }
             break;
         case JUMP_RISING: // Rising in the air
@@ -109,7 +112,7 @@ public class Boy extends AbstractGameObject
     }
     
     /**
-     * Allows us to toggle the feather power-up effect
+     * Allows us to toggle the pumpkin power-up effect
      * @param pickedUp
      */
     public void setPumpkinPowerup (boolean pickedUp)
@@ -177,7 +180,9 @@ public class Boy extends AbstractGameObject
             if (timeJumping <= JUMP_TIME_MAX)
             {
                 // Still jumping
-                velocity.y = terminalVelocity.y;
+                //velocity.y = terminalVelocity.y;
+            	System.out.println("Jumping");
+            	body.setLinearVelocity(new Vector2(0, 50));
             }
             break;
         case FALLING:

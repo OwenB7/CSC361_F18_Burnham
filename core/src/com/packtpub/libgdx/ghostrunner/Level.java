@@ -22,7 +22,7 @@ import com.packtpub.libgdx.ghostrunner.game.objects.CandyCorn;
 public class Level
 {
     public static final String TAG = Level.class.getName();
-    public Boy boy;
+    public static Boy boy;
     public Array<CandyCorn> candycorn;
     public Array<Pumpkin> pumpkins;
     
@@ -125,7 +125,7 @@ public class Level
                 {
                 obj = new Rock();
                 float heightIncreaseFactor = 0.25f;
-                offsetHeight = -2.5f;
+                offsetHeight = -3.0f;
                 obj.position.set(pixelX, baseHeight * obj.dimension.y
                 * heightIncreaseFactor + offsetHeight);
                 rocks.add((Rock)obj);
