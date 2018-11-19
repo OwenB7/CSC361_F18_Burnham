@@ -146,9 +146,9 @@ public class Boy extends AbstractGameObject
     public void update (float deltaTime)
     {
         super.update(deltaTime);
-        if (Level.boy.body.getLinearVelocity().len() != 0)
+        if (velocity.x != 0)
         {
-            viewDirection = Level.boy.body.getLinearVelocity().len() < 0 ? VIEW_DIRECTION.LEFT :
+            viewDirection = velocity.x < 0 ? VIEW_DIRECTION.LEFT :
                 VIEW_DIRECTION.RIGHT;
         }
         if (timeLeftPumpkinPowerup > 0)

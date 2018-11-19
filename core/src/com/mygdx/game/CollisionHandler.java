@@ -60,17 +60,17 @@ public class CollisionHandler implements ContactListener
     	Fixture fixtureB = contact.getFixtureB();
     	AbstractGameObject objA = (AbstractGameObject) fixtureA.getBody().getUserData();
     	AbstractGameObject objB = (AbstractGameObject) fixtureB.getBody().getUserData();
-    	if ((objA instanceof Boy) && (objB instanceof CandyCorn))
+    	if (((objA instanceof Boy) && (objB instanceof CandyCorn))  || ((objA instanceof CandyCorn) && (objB instanceof Boy)))
     	{
     		processCandyCornContact(fixtureA, fixtureB);
     	}
     	
-    	if ((objA instanceof Boy) && (objB instanceof Rock))
+    	if (((objA instanceof Boy) && (objB instanceof Rock))  || ((objA instanceof Rock) && (objB instanceof Boy)))
     	{
     		processRockContact(fixtureA,fixtureB);
     	}
     	
-    	if ((objA instanceof Boy) && (objB instanceof Pumpkin))
+    	if (((objA instanceof Boy) && (objB instanceof Pumpkin)) || ((objA instanceof Pumpkin) && (objB instanceof Boy)))
     	{
     		processPumpkinContact(fixtureA,fixtureB);
     	}
@@ -204,6 +204,6 @@ public class CollisionHandler implements ContactListener
 	public void postSolve(Contact contact, ContactImpulse impulse) 
 	{
 		// TODO Auto-generated method stub
-		
+		processContact(contact);
 	}
 }

@@ -212,11 +212,12 @@ public class WorldController extends InputAdapter
            if (Gdx.input.isKeyPressed(Keys.A)) 
            {
                Level.boy.body.setLinearVelocity(new Vector2(-3,0));   //velocity.x = -level.boy.terminalVelocity.x;
-               Level.boy.body.getLinearVelocity().len2();
+               Level.boy.velocity.x = -3.0f;
            }
            else if (Gdx.input.isKeyPressed(Keys.D)) 
            {
                Level.boy.body.setLinearVelocity(new Vector2(3,0));    //velocity.x = level.boy.terminalVelocity.x;
+               Level.boy.velocity.x = 3.0f;
            }
            
            else 

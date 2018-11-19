@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.packtpub.libgdx.ghostrunner.*;
 import com.packtpub.libgdx.ghostrunner.util.Assets;
+import com.packtpub.libgdx.ghostrunner.game.objects.Boy;
 
 /**
  * Rock consists of left edge, middle part, and a right edge
