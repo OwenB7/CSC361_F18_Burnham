@@ -85,9 +85,11 @@ public class Boy extends AbstractGameObject
      */
     public void setJumping (boolean jumpKeyPressed)
     {
+        
         switch (jumpState)    
         {
         case GROUNDED: // Character is standing on a platform
+        
             if (jumpKeyPressed)
             {
                 // Start counting jump time from the beginning
@@ -136,7 +138,7 @@ public class Boy extends AbstractGameObject
     
     @Override
     /**
-     * Handles the switching of the viewing direction accoriding
+     * Handles the switching of the viewing direction according
      * to the current move direction.  The time remaining of the
      * power-up effect is also checked.  If the time is up, the
      * feather power-up effect is disabled.
@@ -144,9 +146,9 @@ public class Boy extends AbstractGameObject
     public void update (float deltaTime)
     {
         super.update(deltaTime);
-        if (velocity.x != 0)
+        if (Level.boy.body.getLinearVelocity().len() != 0)
         {
-            viewDirection = velocity.x < 0 ? VIEW_DIRECTION.LEFT :
+            viewDirection = Level.boy.body.getLinearVelocity().len() < 0 ? VIEW_DIRECTION.LEFT :
                 VIEW_DIRECTION.RIGHT;
         }
         if (timeLeftPumpkinPowerup > 0)
@@ -168,6 +170,7 @@ public class Boy extends AbstractGameObject
      */
     protected void updateMotionY (float deltaTime)
     {
+        System.out.println("TESTING");
         switch (jumpState)
         {
         case GROUNDED:

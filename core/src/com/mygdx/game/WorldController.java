@@ -212,6 +212,7 @@ public class WorldController extends InputAdapter
            if (Gdx.input.isKeyPressed(Keys.A)) 
            {
                Level.boy.body.setLinearVelocity(new Vector2(-3,0));   //velocity.x = -level.boy.terminalVelocity.x;
+               Level.boy.body.getLinearVelocity().len2();
            }
            else if (Gdx.input.isKeyPressed(Keys.D)) 
            {
@@ -228,11 +229,10 @@ public class WorldController extends InputAdapter
            }
            // Boy Jump
            if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) 
-           {
-        	   
+           {  
              Level.boy.setJumping(true);
-             
-           } else 
+           } 
+           else 
            {
              Level.boy.setJumping(false);
            }
