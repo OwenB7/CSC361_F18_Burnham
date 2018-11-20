@@ -71,10 +71,10 @@ public class CollisionHandler implements ContactListener
     		processRockContact(fixtureA,fixtureB);
     	}
     	
-    	//if (((objA instanceof Boy) && (objB instanceof Pumpkin)) || ((objA instanceof Pumpkin) && (objB instanceof Boy)))
-    	//{
-    	//	processPumpkinContact(fixtureA,fixtureB);
-    	//}
+    	if (((objA instanceof Boy) && (objB instanceof Pumpkin)) || ((objA instanceof Pumpkin) && (objB instanceof Boy)))
+    	{
+    		processPumpkinContact(fixtureA,fixtureB);
+    	}
     	
     	//if ((objA instanceof Boy) && (objB instanceof Ghost))
     	//{
@@ -147,8 +147,8 @@ public class CollisionHandler implements ContactListener
      */
     private void processPumpkinContact(Fixture boyFixture, Fixture pumpkinFixture)
     {
-    	Boy boy = (Boy) boyFixture.getBody().getUserData();
-    	Pumpkin pumpkin = (Pumpkin) pumpkinFixture.getBody().getUserData();
+    	Boy boy = (Boy) pumpkinFixture.getBody().getUserData();
+    	Pumpkin pumpkin = (Pumpkin) boyFixture.getBody().getUserData();
     	pumpkin.collected = true;
     	controller.score += pumpkin.getScore();
     	controller.level.boy.setPumpkinPowerup(true);
