@@ -60,10 +60,11 @@ public class CollisionHandler implements ContactListener
     	Fixture fixtureB = contact.getFixtureB();
     	AbstractGameObject objA = (AbstractGameObject) fixtureA.getBody().getUserData();
     	AbstractGameObject objB = (AbstractGameObject) fixtureB.getBody().getUserData();
-    	//if (((objA instanceof Boy) && (objB instanceof CandyCorn))  || ((objA instanceof CandyCorn) && (objB instanceof Boy)))
-    	//{
-    	//	processCandyCornContact(fixtureA, fixtureB);
-    	//}
+    	if (((objA instanceof Boy) && (objB instanceof CandyCorn))  || ((objA instanceof CandyCorn) && (objB instanceof Boy)))
+    	{
+    		System.out.println("YOO");
+    		processCandyCornContact(fixtureA, fixtureB);
+    	}
     	
     	if (((objA instanceof Boy) && (objB instanceof Rock))  || ((objA instanceof Rock) && (objB instanceof Boy)))
     	{
@@ -89,8 +90,9 @@ public class CollisionHandler implements ContactListener
      */
     private void processCandyCornContact(Fixture boyFixture, Fixture candyCornFixture)
     {
-    	Boy boy = (Boy) boyFixture.getBody().getUserData();
-    	CandyCorn candyCorn = (CandyCorn) candyCornFixture.getBody().getUserData();
+    	Boy boy = (Boy) candyCornFixture.getBody().getUserData();
+    	CandyCorn candyCorn = (CandyCorn) boyFixture.getBody().getUserData();
+    	System.out.println("YO");
     	candyCorn.collected = true;
     	controller.score += candyCorn.getScore();
     	Gdx.app.log("CollisionHandler", "Piece of Candy Corn collected");
@@ -156,33 +158,34 @@ public class CollisionHandler implements ContactListener
 	@Override
 	public void beginContact(Contact contact) 
 	{
-		//Fixture fixtureA = contact.getFixtureA();
-		//Fixture fixtureB = contact.getFixtureB();
+		Fixture fixtureA = contact.getFixtureA();
+		Fixture fixtureB = contact.getFixtureB();
+		processContact(contact);
 
-		//Gdx.app.log("CollisionHandler-begin A", "begin");
+		Gdx.app.log("CollisionHandler-begin A", "begin");
 
-		//ContactListener listener = getListener(fixtureA.getFilterData().categoryBits, fixtureB.getFilterData().categoryBits);
-		//if (listener != null)
-		//{
-		//    listener.beginContact(contact);
-	    //}	
+		ContactListener listener = getListener(fixtureA.getFilterData().categoryBits, fixtureB.getFilterData().categoryBits);
+		if (listener != null)
+		{
+		    listener.beginContact(contact);
+	    }	
 	}
 
 	@Override
 	public void endContact(Contact contact) 
 	{
-		//Fixture fixtureA = contact.getFixtureA();
-		//Fixture fixtureB = contact.getFixtureB();
+		Fixture fixtureA = contact.getFixtureA();
+		Fixture fixtureB = contact.getFixtureB();
 
-		//Gdx.app.log("CollisionHandler-end A", "end");
+		Gdx.app.log("CollisionHandler-end A", "end");
 
-		// Gdx.app.log("CollisionHandler-end A", fixtureA.getBody().getLinearVelocity().x+" : "+fixtureA.getBody().getLinearVelocity().y);
-		 //Gdx.app.log("CollisionHandler-end B", fixtureB.getBody().getLinearVelocity().x+" : "+fixtureB.getBody().getLinearVelocity().y);
-		//ContactListener listener = getListener(fixtureA.getFilterData().categoryBits, fixtureB.getFilterData().categoryBits);
-	    //if (listener != null)
-		//{
-		//    listener.endContact(contact);
-		//}
+		 Gdx.app.log("CollisionHandler-end A", fixtureA.getBody().getLinearVelocity().x+" : "+fixtureA.getBody().getLinearVelocity().y);
+		 Gdx.app.log("CollisionHandler-end B", fixtureB.getBody().getLinearVelocity().x+" : "+fixtureB.getBody().getLinearVelocity().y);
+		ContactListener listener = getListener(fixtureA.getFilterData().categoryBits, fixtureB.getFilterData().categoryBits);
+	    if (listener != null)
+		{
+		    listener.endContact(contact);
+		}
 		
 	}
 
@@ -205,6 +208,16 @@ public class CollisionHandler implements ContactListener
 	{
 		// TODO Auto-generated method stub
 		this.processContact(contact);
+	}
+	
+	private ContactListener getListener(short categoryA, short categoryB)
+	{
+		ObjectMap<Short, ContactListener> listenerCollection = listeners.get(categoryA);
+		if (listenerCollection == null)
+		{
+		    return null;
+		}
+		return listenerCollection.get(categoryB);
 	}
 	
 	
