@@ -95,7 +95,7 @@ public class Boy extends AbstractGameObject
                 // Start counting jump time from the beginning
                 timeJumping = 0;
                 jumpState = JUMP_STATE.JUMP_RISING;
-                System.out.println("TESTING");
+                body.setLinearVelocity(new Vector2(0, 7));
             }
             break;
         case JUMP_RISING: // Rising in the air

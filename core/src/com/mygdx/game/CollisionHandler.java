@@ -60,20 +60,20 @@ public class CollisionHandler implements ContactListener
     	Fixture fixtureB = contact.getFixtureB();
     	AbstractGameObject objA = (AbstractGameObject) fixtureA.getBody().getUserData();
     	AbstractGameObject objB = (AbstractGameObject) fixtureB.getBody().getUserData();
-    	if (((objA instanceof Boy) && (objB instanceof CandyCorn))  || ((objA instanceof CandyCorn) && (objB instanceof Boy)))
-    	{
-    		processCandyCornContact(fixtureA, fixtureB);
-    	}
+    	//if (((objA instanceof Boy) && (objB instanceof CandyCorn))  || ((objA instanceof CandyCorn) && (objB instanceof Boy)))
+    	//{
+    	//	processCandyCornContact(fixtureA, fixtureB);
+    	//}
     	
     	if (((objA instanceof Boy) && (objB instanceof Rock))  || ((objA instanceof Rock) && (objB instanceof Boy)))
     	{
     		processRockContact(fixtureA,fixtureB);
     	}
     	
-    	if (((objA instanceof Boy) && (objB instanceof Pumpkin)) || ((objA instanceof Pumpkin) && (objB instanceof Boy)))
-    	{
-    		processPumpkinContact(fixtureA,fixtureB);
-    	}
+    	//if (((objA instanceof Boy) && (objB instanceof Pumpkin)) || ((objA instanceof Pumpkin) && (objB instanceof Boy)))
+    	//{
+    	//	processPumpkinContact(fixtureA,fixtureB);
+    	//}
     	
     	//if ((objA instanceof Boy) && (objB instanceof Ghost))
     	//{
@@ -103,8 +103,8 @@ public class CollisionHandler implements ContactListener
      */
     private void processRockContact(Fixture boyFixture, Fixture rockFixture)
     {
-    	Boy boy = (Boy) boyFixture.getBody().getUserData();
-    	Rock rock = (Rock) rockFixture.getBody().getUserData();
+    	Boy boy = (Boy) rockFixture.getBody().getUserData();
+    	Rock rock = (Rock) boyFixture.getBody().getUserData();
     	boy = Level.boy;
     	float heightDifference = Math.abs(boy.position.y - (  rock.position.y + rock.bounds.height));
          
@@ -165,7 +165,7 @@ public class CollisionHandler implements ContactListener
 		//if (listener != null)
 		//{
 		//    listener.beginContact(contact);
-//	}	
+	    //}	
 	}
 
 	@Override
@@ -177,11 +177,11 @@ public class CollisionHandler implements ContactListener
 		//Gdx.app.log("CollisionHandler-end A", "end");
 
 		// Gdx.app.log("CollisionHandler-end A", fixtureA.getBody().getLinearVelocity().x+" : "+fixtureA.getBody().getLinearVelocity().y);
-		// Gdx.app.log("CollisionHandler-end B", fixtureB.getBody().getLinearVelocity().x+" : "+fixtureB.getBody().getLinearVelocity().y);
+		 //Gdx.app.log("CollisionHandler-end B", fixtureB.getBody().getLinearVelocity().x+" : "+fixtureB.getBody().getLinearVelocity().y);
 		//ContactListener listener = getListener(fixtureA.getFilterData().categoryBits, fixtureB.getFilterData().categoryBits);
-		//if (listener != null)
+	    //if (listener != null)
 		//{
-		   // listener.endContact(contact);
+		//    listener.endContact(contact);
 		//}
 		
 	}
@@ -191,9 +191,9 @@ public class CollisionHandler implements ContactListener
 	{
 		//Gdx.app.log("CollisionHandler-preSolve A", "preSolve");
 		//Fixture fixtureA = contact.getFixtureA();
-		//Fixture fixtureB = contact.getFixtureB();
+		////Fixture fixtureB = contact.getFixtureB();
 		//ContactListener listener = getListener(fixtureA.getFilterData().categoryBits, fixtureB.getFilterData().categoryBits);
-		//if (listener != null)
+		////if (listener != null)
 		//{
 		//    listener.preSolve(contact, oldManifold);
 		//}
@@ -204,6 +204,9 @@ public class CollisionHandler implements ContactListener
 	public void postSolve(Contact contact, ContactImpulse impulse) 
 	{
 		// TODO Auto-generated method stub
-		processContact(contact);
+		this.processContact(contact);
 	}
+	
+	
+
 }
