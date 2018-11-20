@@ -9,7 +9,7 @@ import com.mygdx.game.WorldController;
 
 /**
  * This class will hold all the common attributes
- * and fucntionalities that each of our game objects
+ * and functionalities that each of our game objects
  * inherit from
  */
 public abstract class AbstractGameObject

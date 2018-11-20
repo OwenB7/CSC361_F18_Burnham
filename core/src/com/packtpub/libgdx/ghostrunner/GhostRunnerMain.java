@@ -49,10 +49,11 @@ public class GhostRunnerMain implements ApplicationListener
 	@Override public void render () 
 	{ 
 		// Do not update game world when paused.
-		if (!paused) {
-		// Update game world by the time that has passed
-		// since last rendered frame.
-		worldController.update(Gdx.graphics.getDeltaTime());
+		if (!paused) 
+		{
+			// Update game world by the time that has passed
+			// since last rendered frame.
+			worldController.update(Gdx.graphics.getDeltaTime());
 		}
 		// Sets the clear screen color to: dark orchid purple
 		Gdx.gl.glClearColor(0x99/255.0f, 0x32/255.0f, 0x5cc/255.0f, 0xff/255.0f);

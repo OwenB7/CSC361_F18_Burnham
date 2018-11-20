@@ -203,6 +203,7 @@ public class WorldController extends InputAdapter
     
     /**
      * allows player to be controllable with left and right arrow keys
+     * also tells player when to jump
      */
     private void handleInputGame (float deltaTime) 
     {
@@ -240,6 +241,11 @@ public class WorldController extends InputAdapter
        }
     }
     
+    /**
+     * Initializes the Box2d world
+     * Additionally creates all the bodies for each object in the 
+     * game and gives them the appropriate characteristics
+     */
     public void initPhysics()
     {
     	if (b2world != null) 

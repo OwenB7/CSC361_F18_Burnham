@@ -22,7 +22,7 @@ public class Pumpkin extends AbstractGameObject
     }
     
 	/**
-	 * Initializes pumpkin and sets bounding boc for collision
+	 * Initializes pumpkin and sets bounding box for collision
 	 */
 	private void init ()
 	{

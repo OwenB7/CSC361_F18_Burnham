@@ -44,6 +44,10 @@ public class CollisionHandler implements ContactListener
 	private WorldController controller;
 	private ObjectMap<Short, ObjectMap<Short, ContactListener>> listeners;
 	
+	/**
+	 * Creates instance of the collision handler
+	 * @param w
+	 */
 	public CollisionHandler(WorldController w)
 	{
 		controller = w;
@@ -156,6 +160,9 @@ public class CollisionHandler implements ContactListener
     }
 
 	@Override
+	/**
+	 * Detects the start of contact
+	 */
 	public void beginContact(Contact contact) 
 	{
 		Fixture fixtureA = contact.getFixtureA();
@@ -172,6 +179,9 @@ public class CollisionHandler implements ContactListener
 	}
 
 	@Override
+	/**
+	 * Detects the end of contact
+	 */
 	public void endContact(Contact contact) 
 	{
 		Fixture fixtureA = contact.getFixtureA();
@@ -204,12 +214,21 @@ public class CollisionHandler implements ContactListener
 	}
 
 	@Override
+	/**
+	 * Calls method processContact()
+	 */
 	public void postSolve(Contact contact, ContactImpulse impulse) 
 	{
 		// TODO Auto-generated method stub
 		this.processContact(contact);
 	}
 	
+	/**
+	 * Returns the collection of listeners
+	 * @param categoryA
+	 * @param categoryB
+	 * @return
+	 */
 	private ContactListener getListener(short categoryA, short categoryB)
 	{
 		ObjectMap<Short, ContactListener> listenerCollection = listeners.get(categoryA);
