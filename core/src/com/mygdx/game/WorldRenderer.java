@@ -15,6 +15,7 @@ import com.mygdx.game.WorldController;
 import com.packtpub.libgdx.ghostrunner.*;
 import com.packtpub.libgdx.ghostrunner.game.objects.*;
 import com.packtpub.libgdx.ghostrunner.util.*;
+import com.packtpub.libgdx.ghostrunner.util.GamePreferences;
 
 
 /**
@@ -189,7 +190,8 @@ public class WorldRenderer implements Disposable
         renderGuiExtraLive(batch);
         // draw collected pumpkin icon (anchored to top left edgeL
         renderGuiPumpkinPowerup(batch);
-        // draw FPS text (anchored to bottom right edge)
+        // draw FPS text (anchored to bottom right edge
+        if (GamePreferences.instance.showFpsCounter)
         renderGuiFpsCounter(batch);
         // draw game over text
         renderGuiGameOverMessage(batch);

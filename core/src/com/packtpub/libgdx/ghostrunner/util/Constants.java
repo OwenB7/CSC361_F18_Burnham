@@ -45,4 +45,6 @@ public class Constants
     
     public static final String SKIN_CANYONBUNNY_UI = 
     		"images/canyonbunny-ui.json";
+
+	public static final String PREFERENCES = "CanyonBunny.prefs";
 }

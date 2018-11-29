@@ -8,6 +8,8 @@ import com.packtpub.libgdx.ghostrunner.game.objects.*;
 import com.packtpub.libgdx.ghostrunner.util.Assets;
 import com.packtpub.libgdx.ghostrunner.util.Constants;
 import com.packtpub.libgdx.ghostrunner.Level;
+import com.packtpub.libgdx.ghostrunner.util.CharacterSkin;
+import com.packtpub.libgdx.ghostrunner.util.GamePreferences;
 /**
  * This class is for the boy object.
  * It is the player's character and consists of only
@@ -213,6 +215,10 @@ public class Boy extends AbstractGameObject
     public void render (SpriteBatch batch)
     {
         TextureRegion reg = null;
+        
+        // Apply Skin color
+        batch.setColor(
+        	CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
         
         // Set special color when game object has a feather power-up
         if (hasPumpkinPowerup)
