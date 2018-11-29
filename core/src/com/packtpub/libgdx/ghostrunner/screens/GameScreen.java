@@ -45,7 +45,7 @@ public class GameScreen extends AbstractGameScreen
         worldRenderer.resize(width, height);
     }
     
-    @Override
+    @Override 
     /**
      * Ensures that the game screen will always work with the
      * latest game settings

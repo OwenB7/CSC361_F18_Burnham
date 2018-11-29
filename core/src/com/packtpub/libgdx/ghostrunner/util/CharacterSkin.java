@@ -18,7 +18,7 @@ public enum CharacterSkin
         color.set(r, g, b, 1.0f);
     }
     
-    /**
+    /** 
      * All character skins are defined using a name
      * that is used for display and RGB color values
      */

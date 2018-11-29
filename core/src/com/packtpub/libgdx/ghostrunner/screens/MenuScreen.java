@@ -392,7 +392,6 @@ public class MenuScreen extends AbstractGameScreen
 	   }
 	    
 	    /**
-	     * Made by Philip Deppen (Assignment 6, p. 256)
 	     * creates a table that contains the skin selection via drop down box
 	     * @return Table
 	     */
@@ -426,7 +425,6 @@ public class MenuScreen extends AbstractGameScreen
 	        }
 	    
 	    /**
-	     * Made by Philip Deppen (Assignment 6, p. 257)
 	     * builds a table that contains the debug settings
 	     */
 	    private Table buildOptWinDebug()
@@ -449,7 +447,7 @@ public class MenuScreen extends AbstractGameScreen
 	    }
 	    
 	    /**
-	     * Made by Philip Deppen (Assignment 6, p. 257)
+	     * Builds window buttons
 	     */
 	    private Table buildOptWinButtons()
 	    {

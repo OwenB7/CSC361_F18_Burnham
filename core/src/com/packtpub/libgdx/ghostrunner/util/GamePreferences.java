@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 /**
  * Abstracts the process of loading and
- * saving all of our game settings
+ * saving all of our game settings 
  */
 public class GamePreferences
 {

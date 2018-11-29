@@ -24,7 +24,7 @@ public class Constants
     public static final String LEVEL_01 = "levels/LevelImage.png";
     
     // Amount of extra lives at level start
-    public static final int LIVES_START = 3;
+    public static final int LIVES_START = 3; 
     
     // Duration of pumpkin power-up in seconds
     public static final float ITEM_PUMPKIN_POWERUP_DURATION = 9;
