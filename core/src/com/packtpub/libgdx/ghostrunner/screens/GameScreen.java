@@ -6,6 +6,9 @@ import com.mygdx.game.WorldController;
 import com.mygdx.game.WorldRenderer;
 //import com.packtpub.libgdx.ghostrunner.util.GamePreferences;
 
+/**
+ * This class will handle the game screen 
+ */
 public class GameScreen extends AbstractGameScreen
 {
         private static final String TAG = GameScreen.class.getName();
