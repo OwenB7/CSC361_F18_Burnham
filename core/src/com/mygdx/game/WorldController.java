@@ -31,6 +31,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.Game;
+import com.packtpub.libgdx.ghostrunner.screens.MenuScreen;
 
 
 /** will need to create package for this */
@@ -41,6 +43,8 @@ public class WorldController extends InputAdapter
     
     private static final String TAG =
         WorldController.class.getName();
+    
+    private Game game;
   
     
     public CameraHelper cameraHelper;
@@ -64,8 +68,9 @@ public class WorldController extends InputAdapter
     /**
      * constructor
      */
-    public WorldController() 
+    public WorldController(Game game) 
     {
+    	this.game = game;
         init();
     }
     
@@ -120,7 +125,7 @@ public class WorldController extends InputAdapter
         if (isGameOver())
         {
         	timeLeftGameOverDelay -= deltaTime;
-        	if (timeLeftGameOverDelay < 0) init();
+        	if (timeLeftGameOverDelay < 0) backToMenu();
         	else
         	{
         		handleInputGame(deltaTime);
@@ -215,6 +220,11 @@ public class WorldController extends InputAdapter
         	cameraHelper.setTarget(cameraHelper.hasTarget()
         			? null: Level.boy);
         	Gdx.app.debug(TAG,  "Camera follow enabled: " + cameraHelper.hasTarget());
+        }
+        // back to menu
+        else if (keycode == Keys.ESCAPE || keycode == Keys.BACK)
+        {
+        	backToMenu();
         }
         return false;
     }
@@ -383,5 +393,11 @@ public class WorldController extends InputAdapter
     	return level.boy.position.y < -5;
     }
     
-
+    /**
+     * Switches to the menu screen
+     */
+    private void backToMenu()
+    {
+    	game.setScreen(new MenuScreen(game));
+    }
 }
