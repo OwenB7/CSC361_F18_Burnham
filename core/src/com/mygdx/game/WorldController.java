@@ -48,6 +48,7 @@ public class WorldController extends InputAdapter
     public int lives;
     public int score;
     public World b2world;
+    private float timeLeftGameOverDelay;
     
     /**
      * Initializes the level
@@ -77,6 +78,7 @@ public class WorldController extends InputAdapter
         Gdx.input.setInputProcessor(this);
         cameraHelper = new CameraHelper();
         lives = Constants.LIVES_START;
+        timeLeftGameOverDelay = 0;
         initLevel();
         //initPhysics();
         
@@ -115,11 +117,27 @@ public class WorldController extends InputAdapter
     {
     	
         handleDebugInput(deltaTime);
+        if (isGameOver())
+        {
+        	timeLeftGameOverDelay -= deltaTime;
+        	if (timeLeftGameOverDelay < 0) init();
+        	else
+        	{
+        		handleInputGame(deltaTime);
+        	}
+        }
         handleInputGame(deltaTime);
         level.update(deltaTime);
         b2world.step(deltaTime, 8, 3);
         cameraHelper.update(deltaTime);
-        
+        if (!isGameOver() && isPlayerBelowLevel())
+        {
+        	lives--;
+        	if (isGameOver())
+        		timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
+        	else
+        		initLevel();
+        }
         
         
     }
@@ -345,6 +363,24 @@ public class WorldController extends InputAdapter
     	
     	
     	
+    }
+   
+    /**
+     * Sees if the player ran out of lives
+     * @return
+     */
+    public boolean isGameOver()
+    {
+    	return lives < 0;
+    }
+    
+    /**
+     * Sees if the player fell to their death
+     * @return
+     */
+    public boolean isPlayerBelowLevel()
+    {
+    	return level.boy.position.y < -5;
     }
     
 

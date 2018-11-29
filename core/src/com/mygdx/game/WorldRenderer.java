@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.packtpub.libgdx.ghostrunner.util.Assets;
 import com.packtpub.libgdx.ghostrunner.util.Constants;
@@ -191,7 +192,7 @@ public class WorldRenderer implements Disposable
         // draw FPS text (anchored to bottom right edge)
         renderGuiFpsCounter(batch);
         // draw game over text
-       // renderGuiGameOverMessage(batch);
+        renderGuiGameOverMessage(batch);
         batch.end();
     } 
     
@@ -199,7 +200,7 @@ public class WorldRenderer implements Disposable
      * This function adds the text that says Game Over when lives run out
      * @param batch
      */
-    /**private void renderGuiGameOverMessage (SpriteBatch batch) 
+    private void renderGuiGameOverMessage (SpriteBatch batch) 
     {
         float x = cameraGUI.viewportWidth / 2;
         float y = cameraGUI.viewportHeight / 2;
@@ -210,7 +211,7 @@ public class WorldRenderer implements Disposable
 	        fontGameOver.draw(batch, "GAME OVER", x, y, 0, Align.center, false);        // need to fix alignment center
 	        fontGameOver.setColor(1, 1, 1, 1);
         }
-    }*/
+    }
     
   /**
     * This method first checks whether there is still time left for the feather power-up effect
