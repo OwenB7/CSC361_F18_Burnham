@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.game.WorldController;
 import com.mygdx.game.WorldRenderer;
-//import com.packtpub.libgdx.ghostrunner.util.GamePreferences;
+import com.packtpub.libgdx.ghostrunner.util.GamePreferences;
 
 /**
  * This class will handle the game screen 
@@ -52,7 +52,7 @@ public class GameScreen extends AbstractGameScreen
      */
     public void show()
     {
-        //GamePreferences.instance.load();
+        GamePreferences.instance.load();
         worldController = new WorldController(game);
         worldRenderer = new WorldRenderer(worldController);
         Gdx.input.setCatchBackKey(true);
