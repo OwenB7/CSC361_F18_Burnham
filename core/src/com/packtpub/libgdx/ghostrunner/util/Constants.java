@@ -33,7 +33,7 @@ public class Constants
     public static final float TIME_DELAY_GAME_OVER = 3;
     
     public static final String TEXTURE_ATLAS_UI = 
-    		"images/canyonbunny-ui.pack";
+    		"images/canyonbunny-ui.pack.atlas";
     
     public static final String TEXTURE_ATLAS_LIBGDX_UI = 
     		"images/uiskin.atlas";
