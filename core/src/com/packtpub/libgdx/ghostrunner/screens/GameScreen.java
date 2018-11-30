@@ -40,6 +40,9 @@ public class GameScreen extends AbstractGameScreen
     }
     
     @Override
+    /**
+     * resizes game screen
+     */
     public void resize(int width, int height)
     {
         worldRenderer.resize(width, height);
@@ -59,6 +62,9 @@ public class GameScreen extends AbstractGameScreen
     }
     
     @Override
+    /**
+     * disposes 
+     */
     public void hide()
     {
         worldRenderer.dispose();
@@ -66,12 +72,18 @@ public class GameScreen extends AbstractGameScreen
     }
     
     @Override
+    /**
+     * changes to a paused state
+     */
     public void pause()
     {
         paused = true;
     }
     
     @Override
+    /**
+     * unpaused state
+     */
     public void resume()
     {
         super.resume();
