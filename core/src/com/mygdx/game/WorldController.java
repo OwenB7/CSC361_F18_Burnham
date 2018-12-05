@@ -143,8 +143,7 @@ public class WorldController extends InputAdapter
         	else
         		initLevel();
         }
-        
-        
+        level.graveyard.updateScrollPosition(cameraHelper.getPosition());
     }
     
     /**

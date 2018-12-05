@@ -30,7 +30,7 @@ public class GameScreen extends AbstractGameScreen
             // since last rendered frame.
             worldController.update(deltaTime);
         }
-        // Sets the clear screen color to: Cornflower Blue
+        // Sets the clear screen color to: Purple
         Gdx.gl.glClearColor(0x99 / 255.0f, 0x32 / 255.0f,0xcc /
         255.0f, 0xff / 255.0f);
         // Clears the screen
