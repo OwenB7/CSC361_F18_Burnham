@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.packtpub.libgdx.ghostrunner.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 
 /**
  * Class that structures and organizes the assets
@@ -32,6 +34,8 @@ public class Assets implements Disposable, AssetErrorListener
     public AssetGhost ghost;
     public AssetLevelDecoration levelDecoration;
     public AssetFonts fonts;
+    public AssetSounds sounds;
+    public AssetMusic music;
     
     // singleton: prevent instantiation from other classes
     private Assets() {}
@@ -83,6 +87,14 @@ public class Assets implements Disposable, AssetErrorListener
         assetManager.setErrorListener(this);
         // load texture atlas
         assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
+        // load sounds
+        assetManager.load("sounds/jump.wav", Sound.class);
+     	assetManager.load("sounds/jump_with_feather.wav", Sound.class);
+     	assetManager.load("sounds/pickup_coin.wav", Sound.class);
+     	assetManager.load("sounds/pickup_feather.wav", Sound.class);
+     	assetManager.load("sounds/live_lost.wav", Sound.class);
+     		// load music
+        assetManager.load("music/song.mp3", Music.class);
         // start loading assets and wait until finished
         assetManager.finishLoading();
         Gdx.app.debug(TAG, "# of assets loaded: " +
@@ -108,6 +120,8 @@ public class Assets implements Disposable, AssetErrorListener
         pumpkin = new AssetPumpkin(atlas);
         ghost = new AssetGhost(atlas);
         levelDecoration = new AssetLevelDecoration(atlas);
+        sounds = new AssetSounds(assetManager);
+        music = new AssetMusic(assetManager);
     }
     
     /**
@@ -237,6 +251,42 @@ public class Assets implements Disposable, AssetErrorListener
         	ghost = atlas.findRegion("Ghost");
         }
     }
+    
+    /**
+	 * Inner class that holds the loaded sound instances
+	 */
+	public class AssetSounds
+	{
+		public final Sound jump;
+		public final Sound jumpWithPumpkin;
+		public final Sound pickupCandyCorn;
+		public final Sound pickupPumpkin;
+		public final Sound liveLost;
+		
+		public AssetSounds (AssetManager am)
+		{
+			jump = am.get("sounds/jump.wav", Sound.class);
+			jumpWithPumpkin = am.get("sounds/jump_with_feather.wav", Sound.class);
+			pickupCandyCorn = am.get("sounds/pickup_coin.wav", Sound.class);
+			pickupPumpkin = am.get("sounds/pickup_feather.wav", Sound.class);
+			liveLost = am.get("sounds/live_lost.wav", Sound.class);
+		}
+	}
+	
+	/**
+	 * Inner class that holds the loaded music instance
+	 */
+	public class AssetMusic
+	{
+		public final Music song01;
+		
+		public AssetMusic (AssetManager am)
+		{
+			song01 = am.get("music/song.mp3", Music.class);
+		}
+	}
+
+
     
 }
 

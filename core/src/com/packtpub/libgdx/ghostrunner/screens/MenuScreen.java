@@ -26,6 +26,7 @@ import com.packtpub.libgdx.ghostrunner.util.Assets;
 import com.packtpub.libgdx.ghostrunner.util.Constants;
 import com.packtpub.libgdx.ghostrunner.util.GamePreferences;
 import com.packtpub.libgdx.ghostrunner.util.CharacterSkin;
+import com.packtpub.libgdx.ghostrunner.util.AudioManager;
 
 /**
  * This class will handle the menu screen
@@ -289,6 +290,7 @@ public class MenuScreen extends AbstractGameScreen
 	    private void onPlayClicked()
 	    {
 	            game.setScreen(new GameScreen(game));
+	            AudioManager.instance.stopMusic();
 	    }
 	    
 	    /**
@@ -350,6 +352,7 @@ public class MenuScreen extends AbstractGameScreen
 	    {
 	            saveSettings();
 	            onCancelClicked();
+	            AudioManager.instance.onSettingsUpdated();
 	    }
 	    
 	    /**
@@ -360,6 +363,7 @@ public class MenuScreen extends AbstractGameScreen
 	            btnMenuPlay.setVisible(true);
 	            btnMenuOptions.setVisible(true);
 	            winOptions.setVisible(false);
+	            AudioManager.instance.onSettingsUpdated();
 	    }
 	    
 	    /**

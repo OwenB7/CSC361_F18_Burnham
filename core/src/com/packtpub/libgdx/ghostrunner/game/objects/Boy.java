@@ -11,6 +11,8 @@ import com.packtpub.libgdx.ghostrunner.Level;
 import com.packtpub.libgdx.ghostrunner.util.CharacterSkin;
 import com.packtpub.libgdx.ghostrunner.util.GamePreferences;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.math.MathUtils;
+import com.packtpub.libgdx.ghostrunner.util.AudioManager;
 
 /**
  * This class is for the boy object.
@@ -106,6 +108,7 @@ public class Boy extends AbstractGameObject
             }
             if (jumpKeyPressed)
             {
+            	AudioManager.instance.play(Assets.instance.sounds.jump);
                 // Start counting jump time from the beginning
                 timeJumping = 0;
                 jumpState = JUMP_STATE.JUMP_RISING;
@@ -120,6 +123,7 @@ public class Boy extends AbstractGameObject
         case JUMP_FALLING: // Falling down after jump
             if (jumpKeyPressed && hasPumpkinPowerup)
             {
+            	AudioManager.instance.play(Assets.instance.sounds.jumpWithPumpkin, 1, MathUtils.random(1.0f, 1.1f));
                 timeJumping = JUMP_TIME_OFFSET_FLYING;
                 jumpState = JUMP_STATE.JUMP_RISING;
             }

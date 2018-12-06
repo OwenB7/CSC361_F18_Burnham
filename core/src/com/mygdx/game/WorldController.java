@@ -33,6 +33,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.Game;
 import com.packtpub.libgdx.ghostrunner.screens.MenuScreen;
+import com.packtpub.libgdx.ghostrunner.util.AudioManager;
 
 
 /** will need to create package for this */
@@ -127,7 +128,11 @@ public class WorldController extends InputAdapter
         if (isGameOver())
         {
         	timeLeftGameOverDelay -= deltaTime;
-        	if (timeLeftGameOverDelay < 0) backToMenu();
+        	if (timeLeftGameOverDelay < 0)
+        	{
+        		AudioManager.instance.play(Assets.instance.music.song01);
+        		backToMenu();
+        	}
         	else
         	{
         		handleInputGame(deltaTime);
@@ -139,9 +144,12 @@ public class WorldController extends InputAdapter
         cameraHelper.update(deltaTime);
         if (!isGameOver() && isPlayerBelowLevel())
         {
+        	AudioManager.instance.play(Assets.instance.sounds.liveLost);
         	lives--;
         	if (isGameOver())
+        	{
         		timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
+        	}
         	else
         		initLevel();
         }
@@ -227,6 +235,7 @@ public class WorldController extends InputAdapter
         // back to menu
         else if (keycode == Keys.ESCAPE || keycode == Keys.BACK)
         {
+        	AudioManager.instance.play(Assets.instance.music.song01);
         	backToMenu();
         }
         return false;

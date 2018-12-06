@@ -11,6 +11,8 @@ import com.mygdx.game.WorldController;
 import com.mygdx.game.WorldRenderer;
 import com.packtpub.libgdx.ghostrunner.util.Assets;
 import com.packtpub.libgdx.ghostrunner.screens.MenuScreen;
+import com.packtpub.libgdx.ghostrunner.util.AudioManager;
+import com.packtpub.libgdx.ghostrunner.util.GamePreferences;
 
 /**
  * This class has the major credentials for the game
@@ -33,6 +35,9 @@ public class GhostRunnerMain extends Game
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         // Load assets
         Assets.instance.init(new AssetManager());
+        // Load preferences for audio settings and start playing music
+        GamePreferences.instance.load();
+        AudioManager.instance.play(Assets.instance.music.song01);
         // Start game at menu screen
         setScreen (new MenuScreen(this));
     }

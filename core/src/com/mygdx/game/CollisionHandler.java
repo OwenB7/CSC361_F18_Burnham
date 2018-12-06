@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.packtpub.libgdx.ghostrunner.util.Assets;
+import com.packtpub.libgdx.ghostrunner.util.AudioManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -34,6 +35,7 @@ import com.mygdx.game.WorldController;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.packtpub.libgdx.ghostrunner.util.AudioManager;
 
 
 /**
@@ -97,6 +99,7 @@ public class CollisionHandler implements ContactListener
     	Boy boy = (Boy) candyCornFixture.getBody().getUserData();
     	CandyCorn candyCorn = (CandyCorn) boyFixture.getBody().getUserData();
     	System.out.println("YO");
+    	AudioManager.instance.play(Assets.instance.sounds.pickupCandyCorn);
     	candyCorn.collected = true;
     	controller.score += candyCorn.getScore();
     	Gdx.app.log("CollisionHandler", "Piece of Candy Corn collected");
@@ -153,6 +156,7 @@ public class CollisionHandler implements ContactListener
     {
     	Boy boy = (Boy) pumpkinFixture.getBody().getUserData();
     	Pumpkin pumpkin = (Pumpkin) boyFixture.getBody().getUserData();
+    	AudioManager.instance.play(Assets.instance.sounds.pickupPumpkin);
     	pumpkin.collected = true;
     	controller.score += pumpkin.getScore();
     	controller.level.boy.setPumpkinPowerup(true);
