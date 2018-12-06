@@ -53,6 +53,7 @@ public class WorldController extends InputAdapter
     public int score;
     public World b2world;
     private float timeLeftGameOverDelay;
+    public float livesVisual;
     
     /**
      * Initializes the level
@@ -83,6 +84,7 @@ public class WorldController extends InputAdapter
         Gdx.input.setInputProcessor(this);
         cameraHelper = new CameraHelper();
         lives = Constants.LIVES_START;
+        livesVisual = lives;
         timeLeftGameOverDelay = 0;
         initLevel();
         //initPhysics();
@@ -144,6 +146,8 @@ public class WorldController extends InputAdapter
         		initLevel();
         }
         level.graveyard.updateScrollPosition(cameraHelper.getPosition());
+        if (livesVisual > lives)
+        	livesVisual = Math.max(lives,  livesVisual -  1 * deltaTime);
     }
     
     /**
