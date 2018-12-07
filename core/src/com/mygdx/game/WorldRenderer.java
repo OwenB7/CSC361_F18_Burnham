@@ -1,6 +1,14 @@
 package com.mygdx.game;
 
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.TreeMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,6 +38,7 @@ public class WorldRenderer implements Disposable
     private OrthographicCamera cameraGUI;
     private static final boolean DEBUG_DRAW_BOX2D_WORLD = false;
     private Box2DDebugRenderer b2debugRenderer;
+    public static String fileName = "../core/assets/images/myFile.txt";
     
     /**
      * Makes an instance of WorldRenderer
@@ -206,6 +215,15 @@ public class WorldRenderer implements Disposable
         renderGuiFpsCounter(batch);
         // draw game over text
         renderGuiGameOverMessage(batch);
+        try 
+        {
+			textWriter();
+		} 
+        catch (IOException e) 
+        {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         batch.end();
     } 
     
@@ -257,6 +275,52 @@ public class WorldRenderer implements Disposable
         "" + (int)timeLeftPumpkinPowerup, x + 60, y + 57);
         }
     }
+    
+    
+    public void textWriter() throws IOException 
+	{
+
+			  try
+			  {
+			      FileWriter fileWriter = new FileWriter(fileName, true);
+
+			      BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			      bufferedWriter.write("High Score: " + worldController.score + "\n");
+			      sortScores();
+			      bufferedWriter.close();
+
+			      System.out.println("Done");
+			  } catch(IOException e) 
+			  {
+			      System.out.println("COULD NOT LOG!!");
+			  }
+	}
+	
+	public void sortScores() throws NumberFormatException, IOException
+	{
+		// instantiate your sorted collection
+		TreeMap<Integer, String> highestScores = new TreeMap<Integer, String>();
+
+		// setup a file reader
+		BufferedReader reader = new BufferedReader(
+		                        new FileReader(new File("../core/assets/images/myFile.txt")));
+
+		String line = null;
+		while ((line = reader.readLine()) != null) 
+		{ // read your file line by line
+		    String[] playerScores = line.split(": ");
+		    // populate your collection with score-player mappings
+		    highestScores.put(Integer.valueOf(playerScores[1]), playerScores[0]);
+		}
+
+		// iterate in descending order
+		for (Integer score : highestScores.descendingKeySet()) 
+		{
+		    System.out.println(highestScores.get(score) + ": " + score);
+		}
+		reader.close();
+
+	}
     
 
 

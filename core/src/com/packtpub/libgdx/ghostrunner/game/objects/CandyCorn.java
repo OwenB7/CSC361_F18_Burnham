@@ -2,6 +2,8 @@ package com.packtpub.libgdx.ghostrunner.game.objects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.packtpub.libgdx.ghostrunner.util.Assets;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.math.MathUtils;
 
 /**
  * Candy Corn object.  It is a collectible item, 
@@ -13,6 +15,8 @@ public class CandyCorn extends AbstractGameObject
     private TextureRegion regCandyCorn;
     
     public boolean collected;
+    public float stateTime;
+   
     
     /**
      * Creates instance of candy corn
@@ -29,7 +33,8 @@ public class CandyCorn extends AbstractGameObject
     {
         dimension.set(0.5f, 0.5f);
         
-        regCandyCorn = Assets.instance.candyCorn.candyCorn;
+        setAnimation(Assets.instance.candyCorn.animCandyCorn);
+        stateTime = MathUtils.random(0.0f, 1.0f);
         
         // set bounding box for collision detection
         bounds.set(0, 0, dimension.x, dimension.y);
@@ -45,7 +50,7 @@ public class CandyCorn extends AbstractGameObject
         if (collected) return;
         
         TextureRegion reg = null;
-        reg = regCandyCorn;
+        reg =  (TextureRegion) animation.getKeyFrame(stateTime, true);
         
         batch.draw(reg.getTexture(), position.x, position.y,
                    origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y,
@@ -61,6 +66,8 @@ public class CandyCorn extends AbstractGameObject
     {
         return 100;
     }
+    
+    
     
 }
 

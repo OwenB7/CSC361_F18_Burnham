@@ -1,8 +1,17 @@
 package com.mygdx.game;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.TreeMap;
+
+import javax.swing.JOptionPane;
+
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IdentityMap.Entry;
 import com.packtpub.libgdx.ghostrunner.util.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -121,9 +130,26 @@ public class WorldController extends InputAdapter
      * called several hundred times per sec
      * @param deltaTime
      */
-    public void update(float deltaTime) 
+    public void update(float deltaTime) throws NumberFormatException, IOException
     {
-    	
+    	BufferedReader reader = new BufferedReader(
+                new FileReader(new File("../core/assets/images/myFile.txt")));
+		TreeMap<Integer, String> highestScores = new TreeMap<Integer, String>();
+		
+		String line = null;
+		while ((line = reader.readLine()) != null) 
+		{ // read your file line by line
+			String[] playerScores = line.split(": ");
+			highestScores.put(Integer.valueOf(playerScores[1]), playerScores[0]);
+		}
+		
+		// iterate in descending order
+		for (Integer score : highestScores.descendingKeySet()) 
+		{
+			String highScore = (highestScores.get(score) + ": " + score);
+		}
+		java.util.Map.Entry<Integer, String> luckyNumber =  highestScores.lastEntry();
+		reader.close();
         handleDebugInput(deltaTime);
         if (isGameOver())
         {
@@ -148,6 +174,7 @@ public class WorldController extends InputAdapter
         	lives--;
         	if (isGameOver())
         	{
+        		JOptionPane.showMessageDialog(null, luckyNumber);
         		timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
         	}
         	else

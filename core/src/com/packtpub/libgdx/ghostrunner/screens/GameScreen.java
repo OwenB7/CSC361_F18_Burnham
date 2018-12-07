@@ -1,4 +1,6 @@
 package com.packtpub.libgdx.ghostrunner.screens;
+import java.io.IOException;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -28,7 +30,18 @@ public class GameScreen extends AbstractGameScreen
         {
             // Update game world by the time that has passed
             // since last rendered frame.
-            worldController.update(deltaTime);
+            try 
+            {
+				worldController.update(deltaTime);
+			} catch (NumberFormatException e) 
+            {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) 
+            {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         // Sets the clear screen color to: Purple
         Gdx.gl.glClearColor(0x99 / 255.0f, 0x32 / 255.0f,0xcc /

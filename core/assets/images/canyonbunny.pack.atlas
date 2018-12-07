@@ -18,6 +18,20 @@ CandyCorn
   orig: 28, 56
   offset: 0, 0
   index: -1
+anim_candy_corn
+  rotate: false
+  xy: 280, 343
+  size: 28, 56
+  orig: 28, 56
+  offset: 0, 0
+  index: 1
+anim_candy_corn
+  rotate: false
+  xy: 280, 343
+  size: 28, 56
+  orig: 28, 56
+  offset: 0, 0
+  index: 3
 Ghost
   rotate: false
   xy: 156, 233
@@ -67,3 +81,10 @@ RunningBoy
   orig: 122, 82
   offset: 0, 0
   index: -1
+anim_candy_corn
+  rotate: false
+  xy: 156, 175
+  size: 28, 56
+  orig: 28, 56
+  offset: 0, 0
+  index: 2

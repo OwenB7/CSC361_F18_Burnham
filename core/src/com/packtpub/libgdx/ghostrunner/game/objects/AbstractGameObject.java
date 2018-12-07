@@ -1,11 +1,13 @@
 package com.packtpub.libgdx.ghostrunner.game.objects;
  
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.WorldController;
+import com.badlogic.gdx.graphics.g2d.Animation;
 
 /**
  * This class will hold all the common attributes
@@ -27,6 +29,8 @@ public abstract class AbstractGameObject
     public Rectangle bounds;
     
     public Body body;
+    public float stateTime;
+    public Animation<TextureRegion> animation;
 
     
     /**
@@ -54,15 +58,20 @@ public abstract class AbstractGameObject
      */
     public void update(float deltaTime)
     {
-        //updateMotionX(deltaTime);
-        //updateMotionY(deltaTime);
-        // Move to new position
-       // position.x += velocity.x * deltaTime;
-        //position.y += velocity.y * deltaTime;
-    	
+    	stateTime += deltaTime;
+    	if (body == null)
+    	{	
+        updateMotionX(deltaTime);
+        updateMotionY(deltaTime);
+        //Move to new position
+        position.x += velocity.x * deltaTime;
+        position.y += velocity.y * deltaTime;
+    	}
+    	else
+    	{	
     	position.set(body.getPosition());
     	rotation = body.getAngle() * MathUtils.radiansToDegrees;
-
+    	}
     }
     
     /**
@@ -124,5 +133,9 @@ public abstract class AbstractGameObject
             velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y);
     }
 
-
+    public void setAnimation (Animation<TextureRegion> animation)
+    {
+    	this.animation = animation;
+    	stateTime = 0;
+    }
 }

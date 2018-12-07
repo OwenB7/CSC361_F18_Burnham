@@ -13,6 +13,8 @@ import com.packtpub.libgdx.ghostrunner.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Class that structures and organizes the assets
@@ -222,9 +224,21 @@ public class Assets implements Disposable, AssetErrorListener
     public class AssetCandyCorn 
     {
         public final AtlasRegion candyCorn;
+        public final Animation animCandyCorn; 
         public AssetCandyCorn (TextureAtlas atlas) 
         {
         	candyCorn = atlas.findRegion("CandyCorn");
+        	
+        	// Animation: Gold Coin
+        	Array <AtlasRegion> regions = atlas.findRegions("anim_candy_corn");
+        	AtlasRegion region = regions.first();
+        				
+        	for (int i = 0; i < 10; i++) 
+        	{
+        		regions.insert(0,  region);
+        	}
+        				
+        	animCandyCorn = new Animation (1.0f / 20.0f, regions, Animation.PlayMode.LOOP_RANDOM);
         }
     }
     
